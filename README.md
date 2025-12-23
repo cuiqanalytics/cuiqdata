@@ -6,8 +6,7 @@
 
 cuiqData lets you build and run data pipelines using **only SQL** — locally, fast, and without infrastructure.
 
-No Airflow. No Kubernetes. No Python DAGs.
-Just numbered SQL files, instant feedback, and cached re-runs.
+No Airflow. No Kubernetes. No Python DAGs. Just numbered SQL files, instant feedback, and cached re-runs.
 
 Install once. Then build pipelines in minutes.
 
@@ -122,6 +121,7 @@ That's it! Your SQL files execute in order (001 → 002 → 003), and results ar
 - Open any SQL file in your editor
 - Change the query
 - Run `cuiqdata run ./sql` again
+- Try re-running from another cached step, i.e. 2: `cuiqdata run --start-step 2 ./sql`
 
 How to continue? Check out the [tutorials](tutorials/)
 
@@ -167,7 +167,6 @@ cuiqdata run ./sql
 - Direct: No translation layer between you and DuckDB
 - Fast to iterate: Edit SQL, run
 - Minimal overhead: One file = one step
-- Caching: Only the steps you change re-execute
 
 #### Option B2: TOML + SQL (Advanced Config)
 
@@ -235,15 +234,38 @@ cuiqdata docs templating
 
 ## When to Use Each Option
 
-| Aspect             | Option A (Beginners)         | Option B1 (SQL-Only)             | Option B2 (TOML)                     |
-| ------------------ | ---------------------------- | -------------------------------- | ------------------------------------ |
-| **Best for**       | Learning the basics          | Fast iteration, simple pipelines | Complex workflows, advanced features |
-| **Setup time**     | ~60 sec                      | ~30 sec                          | ~60 sec                              |
-| **Modification**   | Edit .sql files              | Edit .sql files                  | Edit .toml config                    |
-| **Learning curve** | Gentle introduction          | Minimal if you know SQL          | Need TOML knowledge                  |
-| **Scalability**    | Up to medium complexity      | Straightforward for any size     | Best for complex orchestration       |
+| Aspect             | Option A (Beginners)    | Option B1 (SQL-Only)             | Option B2 (TOML)                     |
+| ------------------ | ----------------------- | -------------------------------- | ------------------------------------ |
+| **Best for**       | Learning the basics     | Fast iteration, simple pipelines | Complex workflows, advanced features |
+| **Setup time**     | ~60 sec                 | ~30 sec                          | ~60 sec                              |
+| **Modification**   | Edit .sql files         | Edit .sql files                  | Edit .toml config                    |
+| **Learning curve** | Gentle introduction     | Minimal if you know SQL          | Need TOML knowledge                  |
+| **Scalability**    | Up to medium complexity | Straightforward for any size     | Best for complex orchestration       |
 
 **Path Flow**: Most users start with **Option A**, move to **Option B1** (SQL-First) as they grow, then add **Option B2** (TOML) features as needed.
+
+---
+
+## Why cuiqData Instead of Bash Scripts?
+
+Bash scripts are great for one-off automation, but they fall apart with data pipelines:
+
+| Problem                      | Bash Script                                              | cuiqData                                                    |
+| ---------------------------- | -------------------------------------------------------- | ----------------------------------------------------------- |
+| **Re-runs take forever**     | Every step runs again, even if nothing changed           | Step-level caching skips unchanged work                     |
+| **Debugging is painful**     | Print statements everywhere; hard to track what happened | Full execution history with timestamps, row counts, runtime |
+| **Dependencies are fragile** | If step 5 fails, you manually re-run from step 1         | Resume from any step; dependency-aware execution            |
+| **No data validation**       | Garbage in = garbage out                                 | Schema validation, row count tracking, data quality checks  |
+| **Team collaboration**       | "Works on my machine"                                    | Reproducible runs with immutable logs                       |
+| **Monitoring is manual**     | Tail logs; hope nothing breaks                           | Execution reports with step timings, cache info, row counts |
+| **Infrastructure overhead**  | Works locally, scales poorly                             | Single binary; runs anywhere (laptop, server, container)    |
+
+**Real example**: A 10-step ETL pipeline with bash:
+- Initial run: 5 minutes
+- Fix a typo in step 7: 5 minutes again (all steps re-run)
+- With cuiqData: 5 seconds (only step 7 re-runs)
+
+**Plus**: SQL is the universal data language. No learning Python DAGs or YAML syntax—just SQL you already know.
 
 ---
 
