@@ -1,12 +1,54 @@
 # cuiqData: Fast, Local SQL Orchestration
 
-**[Léeme en Español →](README_ES.md)**
+![Platforms](https://img.shields.io/badge/platform-macOS%20%7C%20Windows%20%7C%20Linux-blue) ![DuckDB](https://img.shields.io/badge/engine-DuckDB-yellow) ![Local First](https://img.shields.io/badge/local--first-yes-success) ![Single Binary](https://img.shields.io/badge/single--binary-yes-informational) ![No Dependencies](https://img.shields.io/badge/dependencies-none-brightgreen)
+
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](./LICENSE)
+
+cuiqData lets you build and run data pipelines using **only SQL** — locally, fast, and without infrastructure.
+
+No Airflow. No Kubernetes. No Python DAGs.
+Just numbered SQL files, instant feedback, and cached re-runs.
+
+Install once. Then build pipelines in minutes.
 
 ## Installation
 
 **Download** executables or installers for your platform from [Releases](https://github.com/cuiqanalytics/cuiqdata/releases) and follow the instructions provided there.
 
 ---
+
+## ⚡ Quick Start (Your First Pipeline)
+
+Once installed, open a terminal:
+
+**macOS**:
+1. Press `Cmd + Space` to open Spotlight
+2. Type `terminal` and press Enter
+3. A Terminal window opens
+
+**Windows**:
+1. Press `Win + R` to open Run dialog
+2. Type `cmd` and press Enter
+3. A Command Prompt window opens (or use PowerShell)
+
+```bash
+# 1. Create a demo pipeline
+cuiqdata demo
+cd demo
+
+# 2. Run it
+cuiqdata run .
+```
+
+## How cuiqData Works (Mental Model)
+
+1. Each `.sql` file = one pipeline step
+2. The filename order defines execution order
+3. Each step produces a table:
+   - `001_ingest.sql` → `raw_data`
+   - `002_transform.sql` → `transformed_data`
+4. Results are cached automatically
+5. An execution log is generated for traceability
 
 ## Choose Your Path
 
