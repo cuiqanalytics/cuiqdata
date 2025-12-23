@@ -29,12 +29,14 @@ Install once. Then build pipelines in minutes.
 
 Once installed, open a terminal:
 
-**macOS**:
+**In Linux** use the instructions from your distribution.
+
+**In macOS**:
 1. Press `Cmd + Space` to open Spotlight
 2. Type `terminal` and press Enter
 3. A Terminal window opens
 
-**Windows**:
+**In Windows**:
 1. Press `Win + R` to open Run dialog
 2. Type `cmd` and press Enter
 3. A Command Prompt window opens (or use PowerShell)
