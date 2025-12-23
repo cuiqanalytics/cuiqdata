@@ -134,7 +134,7 @@ That's it! Your SQL files execute in order (001 → 002 → 003), and results ar
 - Run `cuiqdata run ./sql` again
 - Try re-running from another cached step, i.e. 2: `cuiqdata run --start-step 2 ./sql`
 
-How to continue? Check out the [tutorials](tutorials/)
+How to continue? Check out the [tutorials](tutorials/) (coming soon)
 
 ---
 
