@@ -202,6 +202,14 @@ nano pipeline.toml
 
 ---
 
+## Versions
+
+**cuiqData Free** (this repository) provides local SQL orchestration for individual developers and small teams. It includes all core features: pipeline execution, caching, logging, and reports.
+
+**cuiqData Pro** offers advanced features for enterprises, including collaborative workspaces, cloud deployment, monitoring, and support. Learn more at [www.cuiqanalytics.com](https://www.cuiqanalytics.com).
+
+---
+
 ## Common Tasks
 
 **See what changed between runs**:
