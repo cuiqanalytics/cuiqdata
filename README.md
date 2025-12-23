@@ -10,6 +10,15 @@ No Airflow. No Kubernetes. No Python DAGs. Just numbered SQL files, instant feed
 
 Install once. Then build pipelines in minutes.
 
+## Versions
+
+**cuiqData Free** (this repository) provides local SQL orchestration for individual developers and small teams. It includes all core features: pipeline execution, caching, logging, and reports.
+
+**cuiqData Pro** offers advanced features for enterprises, including scheduling, web ui, collaborative workspaces, cloud deployment, and support. Learn more at [www.cuiqanalytics.com](https://www.cuiqanalytics.com).
+
+---
+
+
 ## Installation
 
 **Download** executables or installers for your platform from [Releases](https://github.com/cuiqanalytics/cuiqdata/releases) and follow the instructions provided there.
@@ -199,14 +208,6 @@ nano pipeline.toml
 - **SQL + Config**: Write DuckDB SQL directly (no YAML or Python DSLs).
 - **Zero dependencies**: Single binary. No Python, Node, Rust.
 - **Immutable logs**: Execution history with event-sourcing for reproducibility.
-
----
-
-## Versions
-
-**cuiqData Free** (this repository) provides local SQL orchestration for individual developers and small teams. It includes all core features: pipeline execution, caching, logging, and reports.
-
-**cuiqData Pro** offers advanced features for enterprises, including collaborative workspaces, cloud deployment, monitoring, and support. Learn more at [www.cuiqanalytics.com](https://www.cuiqanalytics.com).
 
 ---
 
