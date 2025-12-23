@@ -184,7 +184,7 @@ cuiqdata run ./sql
 ```bash
 cuiqdata init my_project
 cd my_project
-cuiqdata run .
+cuiqdata run pipeline.toml
 ```
 
 Use `pipeline.toml` when you need:
@@ -199,6 +199,7 @@ cd my_project
 
 # Edit pipeline.toml for advanced features
 nano pipeline.toml
+cuiqdata run pipeline.toml
 ```
 
 ---
