@@ -4,7 +4,7 @@
 
 ## Installation
 
-**Download** executables or installers for your platform from [Releases](https://github.com/cuiqdata/releases) and follow the instructions provided there.
+**Download** executables or installers for your platform from [Releases](https://github.com/cuiqanalytics/cuiqdata/releases) and follow the instructions provided there.
 
 ---
 
@@ -210,5 +210,7 @@ cuiqdata docs templating
 - ⭐ [Star on GitHub](https://github.com/cuiqdata/cuiqdata)
 - 💬 [Join our Discord](https://discord.gg/cuiqdata)
 - 🚀 [Pro Features](https://www.cuiqanalytics.com/cuiqdata.html)
+
+---
 
 Built with ❤️ for data teams that value speed and SQL.

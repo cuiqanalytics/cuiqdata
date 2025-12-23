@@ -4,7 +4,7 @@
 
 ## Instalación
 
-**Descarga** los ejecutables o instaladores para tu plataforma desde [Releases](https://github.com/cuiqdata/releases) y sigue las instrucciones indicadas ahí.
+**Descarga** los ejecutables o instaladores para tu plataforma desde [Releases](https://github.com/cuiqanalytics/cuiqdata/releases) y sigue las instrucciones indicadas ahí.
 
 ---
 
