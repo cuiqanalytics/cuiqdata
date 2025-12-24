@@ -18,16 +18,17 @@ Install once. Then build pipelines in minutes.
 
 ---
 
-
 ## Installation
 
 **Download** executables or installers for your platform from [Releases](https://github.com/cuiqanalytics/cuiqdata/releases) and follow the instructions provided there.
 
 ---
 
-## ⚡ Quick Start (Your First Pipeline)
+## ⚡ Quick Start Demo (Your First Pipeline)
 
-Once installed, open a terminal:
+### Opening a terminal session
+
+Once cuiqData is installed, you can run a demo pipeline to see how it works. cuiqData is a **command line tool** that works in a terminal, so first thing to do is to open a terminal in your operating system.
 
 **In Linux** use the instructions from your distribution.
 
@@ -41,16 +42,85 @@ Once installed, open a terminal:
 2. Type `cmd` and press Enter
 3. A Command Prompt window opens (or use PowerShell)
 
+### Creating the demo project
+
+First task will be creating a "demo" project with a single pipeline.
+
+Inside the terminal you opened from the previous step enter the following commands (each line followed by Enter):
+
 ```bash
-# 1. Create a demo pipeline
 cuiqdata demo
 cd demo
+```
 
-# 2. Run it. "sql" is the directory containing the SQL files
+This will create a new directory called "demo" with the following structure:
+
+```
+demo
+├── data
+├── output
+└── sql
+```
+
+- **data** contains sample data files for the demo.
+- **output** is where the results of the pipeline steps are stored.
+- **sql** is where the SQL files to be executed are stored.
+
+
+Enter the following commnand and press Enter:
+
+```bash
 cuiqdata run sql
 ```
 
-## How cuiqData Works (Mental Model)
+Watch the results. The output will be displayed in the terminal, like this:
+
+```
+✓ Ingesting data: ingest...
+✓ Transforming: transform...
+✓ Sinking data: validate...
+
+✅ Pipeline completed in 399ms
+   📊 3/3 steps executed (100%)
+   ⏱️  Duration: 399ms
+   📈 Total rows processed: 30
+```
+
+Congratulations! You've run your first pipeline with cuiqData.  The results are stored in the `output/results.csv` file.
+
+### What's next
+
+Open the directory `demo` in your file explorer or terminal, and examine the contents of the `sql` directory. Make some changes, for example, let's change de `002_transform.sql`. Open the file in your preferred text editor, locate the line with `username` and change it to `UPPER(username) as username_upper`, like the following: 
+
+```sql
+-- Classify users by tier and extract year
+CREATE OR REPLACE TABLE transform AS
+SELECT
+  id,
+  UPPER(username) as username_upper,
+  score,
+  signup_date,
+  CASE 
+    WHEN score >= 800 THEN 'platinum'
+    WHEN score >= 600 THEN 'gold'
+    WHEN score >= 400 THEN 'silver'
+    ELSE 'bronze'
+  END as tier,
+  YEAR(signup_date) as signup_year
+FROM ingest
+```
+
+What are we doing? `UPPER` is a SQL function that converts all characters in a string to uppercase. So, in the transform step where are changing the username field to uppercase.
+
+Save and close the file, and then run the pipeline again:
+
+```
+cuiqdata run sql
+```
+
+You should see the same output as before, but this time the username field will be in uppercase. Open the `output/results.csv` file to see the updated results.
+
+###  How cuiqData Works (Mental Model)
 
 1. Each `.sql` file = one pipeline step
 2. The filename order defines execution order
@@ -60,11 +130,11 @@ cuiqdata run sql
 4. Results are cached automatically
 5. An execution log is generated for traceability
 
-## Choose Your Path
+## Advanced users
 
-### 📊 Option A: Beginners
+### 📊 SQL Mode
 
-Learn data pipelines with simple SQL. Create numbered SQL files, no configuration needed.
+SQL Mode works with sequentially numbered SQL files, no configuration needed.
 
 **Step 1: Create your project**
 
@@ -108,20 +178,8 @@ ORDER BY total_records DESC
 SELECT * FROM transformed_data
 ```
 
-**Step 3: Open a Terminal**
+Open a terminal in the root directory of your project and run cuiqdata passing the path to the SQL directory:
 
-**macOS**:
-1. Press `Cmd + Space` to open Spotlight
-2. Type `terminal` and press Enter
-3. A Terminal window opens
-
-**Windows**:
-1. Press `Win + R` to open Run dialog
-2. Type `cmd` and press Enter
-3. A Command Prompt window opens (or use PowerShell)
-
-
-**Step 4: Run your pipeline**
 ```bash
 cuiqdata run ./sql
 ```
@@ -138,48 +196,11 @@ How to continue? Check out the [tutorials](tutorials/) (coming soon)
 
 ---
 
-### 🚀 Option B: For Data Engineers (SQL or TOML)
+### 🚀 Working with a TOML configuration
 
-**For experienced engineers**: Use whichever style fits your workflow.
+Optionally, cuiqData can use a TOML file to configure your pipeline, for example:
 
-#### Option B1: SQL-First (Pure SQL, Minimal Config)
 
-```bash
-cd my_project
-
-# Create numbered SQL files
-mkdir -p sql
-cat > sql/001_ingest.sql << 'EOF'
--- Load raw data from CSV
-SELECT * FROM read_csv_auto('data/sales.csv')
-EOF
-
-cat > sql/002_transform.sql << 'EOF'
--- Monthly aggregation (DuckDB syntax)
-SELECT 
-  DATE_TRUNC('month', order_date) as month,
-  SUM(amount) as revenue,
-  COUNT(*) as order_count
-FROM raw_data
-GROUP BY DATE_TRUNC('month', order_date)
-ORDER BY month DESC
-EOF
-
-cat > sql/003_sink.sql << 'EOF'
--- Export results
-SELECT * FROM transformed_data
-EOF
-
-# Run the pipeline
-cuiqdata run ./sql
-```
-
-**Why this approach?**
-- Direct: No translation layer between you and DuckDB
-- Fast to iterate: Edit SQL, run
-- Minimal overhead: One file = one step
-
-#### Option B2: TOML + SQL (Advanced Config)
 
 ```bash
 cuiqdata init my_project
