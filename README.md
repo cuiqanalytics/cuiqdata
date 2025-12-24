@@ -46,8 +46,8 @@ Once installed, open a terminal:
 cuiqdata demo
 cd demo
 
-# 2. Run it
-cuiqdata run .
+# 2. Run it. "sql" is the directory containing the SQL files
+cuiqdata run sql
 ```
 
 ## How cuiqData Works (Mental Model)
