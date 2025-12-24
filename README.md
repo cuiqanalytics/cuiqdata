@@ -30,7 +30,7 @@ Install once. Then build pipelines in minutes.
 
 Once cuiqData is installed, you can run a demo pipeline to see how it works. cuiqData is a **command line tool** that works in a terminal, so first thing to do is to open a terminal in your operating system.
 
-**In Linux** use the instructions from your distribution.
+**In Linux** use the instructions from your distribution, and make sure to add the command to your path.
 
 **In macOS**:
 1. Press `Cmd + Space` to open Spotlight
