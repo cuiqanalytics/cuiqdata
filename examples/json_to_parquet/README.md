@@ -12,7 +12,7 @@ Convert JSONL event logs to Parquet with aggregation - no config file needed.
 ## Running
 
 ```bash
-cuiq run examples/json_to_parquet
+cuiqdata run examples/json_to_parquet
 ```
 
 Pipeline uses 001_*.sql naming convention without sql_pipeline.toml.

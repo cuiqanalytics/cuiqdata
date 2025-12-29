@@ -12,7 +12,7 @@ This example shows the minimal setup needed for a SQL pipeline using just 001_*.
 
 ```bash
 # From project root
-cuiq run examples/simple_csv_processing
+cuiqdata run examples/simple_csv_processing
 ```
 
 The pipeline will:

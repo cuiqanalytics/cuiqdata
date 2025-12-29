@@ -10,35 +10,57 @@ Welcome to the **cuiqData Local Data Stack** tutorial series. This curriculum te
 - **Best Practices Embedded**: DuckDB syntax, snake_case naming, ISO dates, immutability
 - **Reproducible**: Sample data included; all queries execute on any DuckDB instance
 
-## The Three Levels
+## The Four Tutorials
 
-### Level 1: The Foundation (E-Commerce Analytics)
+### 001: SQL Basics
 
-**Folder**: `level1_ecommerce_analytics/`
+**Folder**: `001_sql_basics/`
 
-**Duration**: 1-2 hours for beginners
+**Duration**: 2-3 hours for beginners
+
+**What You'll Learn**:
+- SQL fundamentals and query structure
+- File ingestion (CSV, Excel)
+- Basic data validation
+- Exporting results
+
+**Lessons**:
+- `lesson_1_basic_ingest_export/` - Load and export data
+- `lesson_2_working_with_excel_files/` - Working with Excel files
+- `lesson_3_data_validation/` - Validating data quality
+
+**Next**: Complete lessons in order. Master the fundamentals before moving to 002.
+
+---
+
+### 002: Basic Pipelines (E-Commerce Analytics)
+
+**Folder**: `002_basic_pipelines/`
+
+**Duration**: 2-3 hours for intermediate users
+
+**Prerequisites**: Comfortable with SQL basics (001)
 
 **What You'll Learn**:
 - Bronze-Silver-Gold data architecture
-- CSV ingestion with automatic type detection
 - Data cleaning and normalization
 - Basic aggregations with GROUP BY
-- Exporting to formats for stakeholders
+- Exporting results for stakeholders
 
-**Scenario**: Analyze e-commerce order data to produce a revenue report by city.
+**Scenario**: Analyze order data to produce a revenue report.
 
 **Key Concepts**:
-- `read_csv_auto()` for flexible CSV loading
 - Type casting and date normalization
 - COALESCE for handling missing values
 - Aggregate functions (SUM, COUNT, AVG)
 - EXPORT to CSV and Parquet
+- Pipeline structure and organization
 
 **Skills Developed**:
 ✓ Data pipeline thinking (Bronze → Silver → Gold)  
 ✓ SQL query structure and organization  
 ✓ Debugging data issues early  
-✓ Communicating results to non-technical users  
+✓ Communicating results to stakeholders  
 
 **Files**:
 - `README.md` - Overview and learning goals
@@ -47,28 +69,27 @@ Welcome to the **cuiqData Local Data Stack** tutorial series. This curriculum te
 - `003_enrich_metrics.sql` - Calculate business metrics
 - `004_export_report.sql` - Deliver to stakeholders
 - `challenge.sql` - Hands-on exercises with solutions
-- `sample_data.csv` - Ready-to-use sample data
 
-**Next**: Complete all files sequentially. Run challenges before moving to Level 2.
+**Next**: Complete all files sequentially. Run challenges before moving to 003.
 
 ---
 
-### Level 2: The Data Engineer (SaaS Sessionization)
+### 003: Semistructured Data (User Sessionization)
 
-**Folder**: `level2_data_engineer_sessionization/`
+**Folder**: `003_semistructured_data/`
 
 **Duration**: 2-3 hours for intermediate users
 
-**Prerequisites**: Comfortable with Level 1 concepts
+**Prerequisites**: Comfortable with 002 concepts
 
 **What You'll Learn**:
 - Window functions (LAG, SUM OVER)
 - Gap-based grouping for sessionization
 - Cumulative sums for ID generation
 - JSON data ingestion and flattening
-- Star schema design patterns
+- Advanced aggregation patterns
 
-**Scenario**: Group user clicks into sessions, where a session ends after 30+ minutes of inactivity.
+**Scenario**: Group user events into sessions, where a session ends after 30+ minutes of inactivity.
 
 **Key Concepts**:
 - `LAG()` to detect time gaps
@@ -82,7 +103,7 @@ Welcome to the **cuiqData Local Data Stack** tutorial series. This curriculum te
 ✓ Gap and state detection  
 ✓ Building IDs from logic flags  
 ✓ JSON data handling  
-✓ Star schema thinking  
+✓ Advanced analytical patterns  
 
 **Files**:
 - `README.md` - Overview and key concepts
@@ -90,20 +111,20 @@ Welcome to the **cuiqData Local Data Stack** tutorial series. This curriculum te
 - `002_detect_gaps.sql` - Calculate time deltas with LAG()
 - `003_flag_new_sessions.sql` - Identify session boundaries
 - `004_assign_session_ids.sql` - Create unique session IDs
+- `005_export_results.sql` - Export session data
 - `challenge.sql` - Advanced exercises with solutions
-- `sample_events.jsonl` - Ready-to-use event logs
 
-**Next**: Master window functions here. They're essential for Level 3 and real-world analytics.
+**Next**: Master window functions here. They're essential for real-world analytics.
 
 ---
 
-### Level 3: The Financial Analyst (YoY & Rolling Metrics)
+### 004: Advanced Pipeline (Time-Series & YoY Analysis)
 
-**Folder**: `level3_financial_analyst_metrics/`
+**Folder**: `004_advanced_pipeline/`
 
 **Duration**: 3-4 hours for advanced users
 
-**Prerequisites**: Solid understanding of Levels 1 and 2
+**Prerequisites**: Solid understanding of 002 and 003
 
 **What You'll Learn**:
 - Rolling windows for time-series smoothing
@@ -134,10 +155,10 @@ Welcome to the **cuiqData Local Data Stack** tutorial series. This curriculum te
 - `002_rolling_metrics.sql` - Calculate 7-day and 30-day moving averages
 - `003_yoy_growth.sql` - Year-over-year and month-over-month analysis
 - `004_advanced_analysis.sql` - Seasonality, anomalies, trends, forecasting
+- `005_export_results.sql` - Export analysis results
 - `challenge.sql` - Integration exercises with solutions
-- `sample_daily_sales.csv` - Multi-year revenue data
 
-**Next**: Apply these patterns to your own data. Combine Level 2 (sessionization) with Level 3 (time-series) for powerful insights.
+**Next**: Apply these patterns to your own data. Combine 003 (sessionization) with 004 (time-series) for powerful insights.
 
 ---
 
@@ -145,25 +166,24 @@ Welcome to the **cuiqData Local Data Stack** tutorial series. This curriculum te
 
 ### For Beginners
 
-1. Start with **Level 1**. Read the README first.
-2. Run SQL files in order: `001_`, `002_`, etc.
+1. Start with **001 SQL Basics**. Read the README first.
+2. Complete each lesson in order.
 3. **Examine the output after each step**. Understand what changed.
 4. Read the SQL comments carefully—they explain the "why".
-5. Complete the challenge exercises before moving on.
-6. Once comfortable, move to **Level 2**.
+5. Once comfortable, move to **002 Basic Pipelines**.
 
 ### For Intermediate Users
 
-1. Skim **Level 1** quickly (you probably know this stuff).
-2. Focus on **Level 2**. Window functions are tricky; take time here.
-3. Study the cumulative sum trick in `004_assign_session_ids.sql`.
-4. Complete all Level 2 challenges.
-5. Proceed to **Level 3** with confidence.
+1. Skim **001 SQL Basics** quickly (you probably know this stuff).
+2. Focus on **002 Basic Pipelines**. Master the Bronze-Silver-Gold pattern.
+3. Progress to **003 Semistructured Data**. Window functions are tricky; take time here.
+4. Study the cumulative sum trick in `004_assign_session_ids.sql`.
+5. Complete all challenges before moving to 004.
 
 ### For Advanced Users
 
-1. Scan all three levels to find gaps in your knowledge.
-2. Focus on **Level 3**, especially `004_advanced_analysis.sql`.
+1. Scan 002 and 003 to find gaps in your knowledge.
+2. Focus on **004 Advanced Pipeline**, especially `004_advanced_analysis.sql`.
 3. Adapt the patterns to your own data problems.
 4. Consider extending with forecasting, ML feature engineering, or real-time processing.
 
@@ -180,42 +200,21 @@ Welcome to the **cuiqData Local Data Stack** tutorial series. This curriculum te
 
 ### Prerequisites
 
-- DuckDB installed (free, single executable)
-- Basic SQL knowledge (SELECT, FROM, WHERE)
+- cuiqData installed
+- (Optional) basic SQL knowledge (SELECT, FROM, WHERE)
 - A text editor or IDE (VS Code, DBeaver, etc.)
 
-### Setting Up
+### Running a Tutorial with cuiqData
+
+From the project root:
 
 ```bash
-# Create sample data directories
-mkdir -p data
-mkdir -p output
+# Run a full tutorial
+cuiqdata run tutorials/002_basic_pipelines
 
-# Copy sample files for each level
-cp level1_ecommerce_analytics/sample_data.csv data/messy_orders.csv
-cp level2_data_engineer_sessionization/sample_events.jsonl data/app_events.json
-cp level3_financial_analyst_metrics/sample_daily_sales.csv data/daily_sales.csv
-```
-
-### Running a Tutorial
-
-```bash
-# Start DuckDB
-duckdb
-
-# In DuckDB:
-.open tutorials.db
-
--- Run files sequentially
-.read tutorials/level1_ecommerce_analytics/001_ingest_raw.sql
-.read tutorials/level1_ecommerce_analytics/002_clean_and_cast.sql
--- ... continue with remaining files
-```
-
-Or run cuiqData (when available):
-```bash
-# Run a TOML pipeline that executes all Level 1 files
-cuiq run level1_pipeline.toml
+# Or navigate to the tutorial and run it
+cd tutorials/002_basic_pipelines
+cuiqdata run <sql directory>
 ```
 
 ---
@@ -271,7 +270,7 @@ Inspect every output. Spot-check totals. Look for suspicious NULLs.
 
 ### Recommended Extensions
 
-1. **Combine Levels**: Use sessionization (L2) + rolling metrics (L3) for user cohort analysis
+1. **Combine Tutorials**: Use sessionization (003) + rolling metrics (004) for user cohort analysis
 2. **Add Visualization**: Export to CSV and chart in Excel or Python
 3. **Parameterize**: Add variables for date ranges, thresholds, etc.
 4. **Automate**: Build cuiqData TOML pipelines to run tutorials daily

@@ -42,10 +42,7 @@ If not present, sensible defaults are used.
 
 ```bash
 # From project root
-cuiq run --sql examples/sql_pipeline
-
-# Or with short flag
-cuiq run examples/sql_pipeline -s
+cuiqdata run examples/sql_pipeline
 ```
 
 ## Auto-Detection Rules
@@ -59,33 +56,14 @@ Files are classified based on naming patterns:
 - **validate**: Contains "validate" or "check"
 - **transform**: Everything else
 
+SQL files without a number are skipped.
+
 ### Step Ordering
 
 Files are sorted alphabetically by filename, so the numbered prefix (NNN_) ensures correct execution order:
 - 001_ → executed first
 - 002_ → executed second
 - etc.
-
-### Table Naming
-
-Output tables are auto-generated from step names:
-- Format: `{step_order}_{step_name}`
-- Example: `001_ingest`, `002_clean`, `003_aggregate`
-
-Steps automatically chain: the output of step N becomes the input of step N+1 (for transform and validate steps).
-
-## Customization
-
-### Using Different File Names
-
-The only requirement is that filenames end with `.sql`. For example:
-```
-step_01_extract.sql
-step_02_transform.sql
-step_03_load.sql
-```
-
-Just make sure they sort alphabetically in the order you want them to execute.
 
 ### Adding More Steps
 
@@ -95,14 +73,9 @@ Simply add more SQL files following the naming convention:
 007_cleanup.sql
 ```
 
-### Metadata
-
-Place `sql_pipeline.toml` in the same directory to provide pipeline metadata that overrides auto-detected values.
-
 ## Notes
 
 - All SQL is executed in DuckDB
 - Each step's output becomes the next step's input (auto-chained)
 - Validation steps that return no rows are considered "passed"
 - Sink steps don't produce output tables
-- Table names are auto-generated; you can't customize them per-file
