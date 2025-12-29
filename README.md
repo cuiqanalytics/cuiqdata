@@ -8,6 +8,8 @@ No Airflow. No Kubernetes. No Python DAGs. Just numbered SQL files, instant feed
 
 Install once. Then build pipelines in minutes.
 
+![Demo](/examples/demo.gif)
+
 ## Versions
 
 **cuiqData Free** (this repository) provides local SQL orchestration for individual developers and small teams. It includes all core features: pipeline execution, caching, logging, and reports.
