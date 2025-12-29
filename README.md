@@ -2,8 +2,6 @@
 
 ![Platforms](https://img.shields.io/badge/platform-macOS%20%7C%20Windows%20%7C%20Linux-blue) ![DuckDB](https://img.shields.io/badge/engine-DuckDB-yellow) ![Local First](https://img.shields.io/badge/local--first-yes-success) ![Single Binary](https://img.shields.io/badge/single--binary-yes-informational) ![No Dependencies](https://img.shields.io/badge/dependencies-none-brightgreen)
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](./LICENSE)
-
 cuiqData lets you build and run data pipelines using **only SQL** — locally, fast, and without infrastructure.
 
 No Airflow. No Kubernetes. No Python DAGs. Just numbered SQL files, instant feedback, and cached re-runs.
@@ -27,6 +25,8 @@ Install once. Then build pipelines in minutes.
 ## ⚡ Quick Start Demo (Your First Pipeline)
 
 ### Opening a terminal session
+
+Not familiar with the Terminal? Check the tutorial [Terminal Basics](tutorials/TERMINAL_BASICS.md) for a quick introduction.
 
 Once cuiqData is installed, you can run a demo pipeline to see how it works. cuiqData is a **command line tool** that works in a terminal, so first thing to do is to open a terminal in your operating system.
 
@@ -130,6 +130,10 @@ You should see the same output as before, but this time the username field will 
 4. Results are cached automatically
 5. An execution log is generated for traceability
 
+### What's next?
+
+Check out the [tutorials](tutorials/)
+
 ## Advanced users
 
 ### 📊 SQL Mode
@@ -191,8 +195,6 @@ That's it! Your SQL files execute in order (001 → 002 → 003), and results ar
 - Change the query
 - Run `cuiqdata run ./sql` again
 - Try re-running from another cached step, i.e. 2: `cuiqdata run --start-step 2 ./sql`
-
-How to continue? Check out the [tutorials](tutorials/) (coming soon)
 
 ---
 

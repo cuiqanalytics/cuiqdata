@@ -2,6 +2,8 @@
 
 Welcome to the **cuiqData Local Data Stack** tutorial series. This curriculum teaches SQL fundamentals through real-world data engineering problems, progressing from basic analytics to advanced time-series analysis.
 
+![Demo](/examples/demo.gif)
+
 ## Philosophy
 
 - **Learn by Doing**: Each tutorial is a complete, executable project
