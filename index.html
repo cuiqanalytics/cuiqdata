@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>cuiqData - Build Data Pipelines in Minutes, Not Days</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #fff;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, #8f1fab 0%, #6a0f7f 100%);
+            color: white;
+            padding: 80px 20px 100px;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 24px;
+            line-height: 1.2;
+        }
+
+        .hero .subheadline {
+            font-size: 1.5rem;
+            margin-bottom: 16px;
+            opacity: 0.95;
+            font-weight: 400;
+        }
+
+        .hero .description {
+            font-size: 1.1rem;
+            margin-bottom: 40px;
+            opacity: 0.9;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .cta-primary {
+            display: inline-block;
+            background: #8f1fab;
+            color: white;
+            padding: 18px 48px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            text-decoration: none;
+            border-radius: 8px;
+            transition: transform 0.2s, box-shadow 0.2s;
+            box-shadow: 0 4px 15px rgba(143, 27, 171, 0.3);
+            margin: 10px;
+        }
+
+        .cta-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+        }
+
+        .cta-secondary {
+            display: inline-block;
+            background: transparent;
+            color: white;
+            padding: 18px 48px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            text-decoration: none;
+            border-radius: 8px;
+            border: 2px solid white;
+            transition: background 0.2s;
+            margin: 10px;
+        }
+
+        .cta-secondary:hover {
+            background: rgba(255,255,255,0.1);
+        }
+
+        /* Demo Section */
+        .demo-section {
+            padding: 60px 20px;
+            background: #f8f9fa;
+            text-align: center;
+        }
+
+        .demo-section h2 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            color: #2d3748;
+        }
+
+        .demo-section p {
+            font-size: 1.2rem;
+            color: #4a5568;
+            margin-bottom: 40px;
+        }
+
+        .demo-container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+        }
+
+        .demo-container img {
+            width: 100%;
+            border-radius: 8px;
+        }
+
+        /* Benefits Section */
+        .benefits {
+            padding: 80px 20px;
+            background: white;
+        }
+
+        .benefits h2 {
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 60px;
+            color: #2d3748;
+        }
+
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .benefit-card {
+            padding: 30px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            transition: transform 0.2s;
+        }
+
+        .benefit-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .benefit-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 16px;
+            color: #8f1fab;
+        }
+
+        .benefit-card p {
+            color: #4a5568;
+            font-size: 1.05rem;
+        }
+
+        /* Comparison Section */
+        .comparison {
+            padding: 80px 20px;
+            background: #2d3748;
+            color: white;
+        }
+
+        .comparison h2 {
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .comparison .subtitle {
+            text-align: center;
+            font-size: 1.2rem;
+            margin-bottom: 50px;
+            opacity: 0.9;
+        }
+
+        .comparison-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .comparison-item {
+            background: rgba(255,255,255,0.1);
+            padding: 25px;
+            border-radius: 8px;
+        }
+
+        .comparison-item h4 {
+            font-size: 1.2rem;
+            margin-bottom: 12px;
+            color: #b856d4;
+        }
+
+        .comparison-item .before {
+            color: #fc8181;
+            margin-bottom: 8px;
+        }
+
+        .comparison-item .after {
+            color: #68d391;
+        }
+
+        /* Quick Start Section */
+        .quick-start {
+            padding: 80px 20px;
+            background: white;
+        }
+
+        .quick-start h2 {
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 20px;
+            color: #2d3748;
+        }
+
+        .quick-start .intro {
+            text-align: center;
+            font-size: 1.2rem;
+            color: #4a5568;
+            margin-bottom: 50px;
+        }
+
+        .steps {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .step {
+            margin-bottom: 40px;
+            padding: 30px;
+            background: #faf8fc;
+            border-radius: 8px;
+            border-left: 4px solid #8f1fab;
+        }
+
+        .step h3 {
+            font-size: 1.5rem;
+            margin-bottom: 16px;
+            color: #8f1fab;
+        }
+
+        .step code {
+            display: block;
+            background: #2d3748;
+            color: #68d391;
+            padding: 16px;
+            border-radius: 6px;
+            margin: 16px 0;
+            font-family: 'Courier New', monospace;
+            overflow-x: auto;
+        }
+
+        /* Social Proof */
+        .social-proof {
+            padding: 60px 20px;
+            background: #f8f9fa;
+            text-align: center;
+        }
+
+        .badges {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .badge {
+            background: white;
+            padding: 15px 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            font-weight: 600;
+            color: #4a5568;
+        }
+
+        /* Final CTA Section */
+        .final-cta {
+            padding: 100px 20px;
+            background: linear-gradient(135deg, #8f1fab 0%, #6a0f7f 100%);
+            color: white;
+            text-align: center;
+        }
+
+        .final-cta h2 {
+            font-size: 2.8rem;
+            margin-bottom: 24px;
+        }
+
+        .final-cta p {
+            font-size: 1.3rem;
+            margin-bottom: 40px;
+            opacity: 0.95;
+        }
+
+        /* Responsive */
+        /* Header */
+        header {
+            background: white;
+            border-bottom: 1px solid #e2e8f0;
+            padding: 16px 20px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        header .container {
+            display: flex;
+            align-items: center;
+        }
+
+        header img {
+            height: 40px;
+            width: auto;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+
+            .hero .subheadline {
+                font-size: 1.2rem;
+            }
+
+            .benefits h2, .comparison h2, .quick-start h2 {
+                font-size: 2rem;
+            }
+
+            .cta-primary, .cta-secondary {
+                display: block;
+                margin: 10px auto;
+                max-width: 300px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <img src="static/cuiqDATA.svg" alt="cuiqData" />
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <h1>Build Data Pipelines in Minutes, Not Days</h1>
+            <p class="subheadline">Fast, local SQL orchestration without the infrastructure headache</p>
+            <p class="description">No Airflow. No Kubernetes. No Python DAGs. Just numbered SQL files and instant results.</p>
+            <div>
+                <a href="https://github.com/cuiqanalytics/cuiqdata/releases" class="cta-primary">Download Free Now</a>
+                <a href="#demo" class="cta-secondary">See How It Works</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Demo Section -->
+    <section id="demo" class="demo-section">
+        <div class="container">
+            <h2>Watch cuiqData in Action</h2>
+            <p>From installation to running your first pipeline in under 60 seconds</p>
+            <div class="demo-container">
+                <img src="examples/demo.gif" alt="cuiqData Demo" />
+            </div>
+        </div>
+    </section>
+
+    <!-- Benefits Section -->
+    <section class="benefits">
+        <div class="container">
+            <h2>Why Data Teams Choose cuiqData</h2>
+            <div class="benefits-grid">
+                <div class="benefit-card">
+                    <h3>⚡ Lightning Fast</h3>
+                    <p>Step-level caching delivers 100x speedups on re-runs. Change one step, re-run only that step.</p>
+                </div>
+                <div class="benefit-card">
+                    <h3>🎯 Zero Dependencies</h3>
+                    <p>Single binary installation. No Python, no Node, no complex setup. Works on macOS, Windows, and Linux.</p>
+                </div>
+                <div class="benefit-card">
+                    <h3>💻 Local First</h3>
+                    <p>Everything runs on your machine with DuckDB. No cloud infrastructure or external dependencies required.</p>
+                </div>
+                <div class="benefit-card">
+                    <h3>📝 Just SQL</h3>
+                    <p>Write DuckDB SQL directly. No YAML configs or Python DSLs to learn. If you know SQL, you're ready.</p>
+                </div>
+                <div class="benefit-card">
+                    <h3>🔄 Smart Caching</h3>
+                    <p>Automatic step-level caching means you never wait for unchanged steps to re-execute.</p>
+                </div>
+                <div class="benefit-card">
+                    <h3>📊 Full Traceability</h3>
+                    <p>Immutable execution logs with event-sourcing track every pipeline run for complete reproducibility.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Comparison Section -->
+    <section class="comparison">
+        <div class="container">
+            <h2>Stop Wasting Time on Bash Scripts</h2>
+            <p class="subtitle">A 10-step pipeline example shows the dramatic difference</p>
+            <div class="comparison-grid">
+                <div class="comparison-item">
+                    <h4>Initial Run</h4>
+                    <p class="before">Bash: 5 minutes</p>
+                    <p class="after">cuiqData: 5 minutes</p>
+                </div>
+                <div class="comparison-item">
+                    <h4>Fix Typo in Step 7</h4>
+                    <p class="before">Bash: 5 minutes (all steps re-run)</p>
+                    <p class="after">cuiqData: 5 seconds (only step 7)</p>
+                </div>
+                <div class="comparison-item">
+                    <h4>Debugging</h4>
+                    <p class="before">Bash: Print statements everywhere</p>
+                    <p class="after">cuiqData: Full execution history built-in</p>
+                </div>
+                <div class="comparison-item">
+                    <h4>Team Collaboration</h4>
+                    <p class="before">Bash: "Works on my machine"</p>
+                    <p class="after">cuiqData: Reproducible with immutable logs</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Quick Start -->
+    <section class="quick-start">
+        <div class="container">
+            <h2>Get Started in 3 Simple Steps</h2>
+            <p class="intro">Your first pipeline runs in under 2 minutes</p>
+            <div class="steps">
+                <div class="step">
+                    <h3>Step 1: Install cuiqData</h3>
+                    <p>Download the single binary for your platform. No dependencies to install.</p>
+                    <code>cuiqdata demo<br>cd demo</code>
+                </div>
+                <div class="step">
+                    <h3>Step 2: Run Your First Pipeline</h3>
+                    <p>Execute the demo pipeline with sample data included.</p>
+                    <code>cuiqdata run sql</code>
+                </div>
+                <div class="step">
+                    <h3>Step 3: See the Results</h3>
+                    <p>View execution summary, cached steps, and output data instantly.</p>
+                    <code>✅ Pipeline completed in 399ms<br>📊 3/3 steps executed (100%)<br>📈 Total rows processed: 30</code>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Social Proof -->
+    <section class="social-proof">
+        <div class="container">
+            <h2>Trusted by Data Teams</h2>
+            <div class="badges">
+                <div class="badge">🖥️ macOS | Windows | Linux</div>
+                <div class="badge">⚡ DuckDB Powered</div>
+                <div class="badge">🔒 Local First</div>
+                <div class="badge">📦 Single Binary</div>
+                <div class="badge">✅ Zero Dependencies</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Final CTA -->
+    <section class="final-cta">
+        <div class="container">
+            <h2>Ready to Build Faster Pipelines?</h2>
+            <p>Join data teams who've eliminated infrastructure overhead</p>
+            <a href="https://github.com/cuiqanalytics/cuiqdata/releases" class="cta-primary">Start Free Now</a>
+            <a href="https://discord.gg/3yhqhZ4RR8" class="cta-secondary">Join Our Discord</a>
+        </div>
+    </section>
+</body>
+</html>

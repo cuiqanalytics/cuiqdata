@@ -26,3 +26,7 @@ examples/**/*.db
 examples/**/*.html
 examples/**/*.py
 examples/**/output/*
+
+!static/
+!static/*
+!index.html
