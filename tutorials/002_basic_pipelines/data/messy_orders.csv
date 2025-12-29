@@ -1,0 +1,16 @@
+Order ID,Customer Name,Order Date,Sales Amount,City
+1001,Alice Johnson,01/15/2024,249.99,New York
+1002,Bob Smith,01/16/2024,,Los Angeles
+1003,Charlie Brown,01/17/2024,175.50,chicago
+1004,Diana Prince,01/18/2024,425.00,NEW YORK
+1005,Eve Wilson,01/19/2024,99.99, CHICAGO
+1006,Frank Miller,01/20/2024,550.00,Los Angeles
+1007,Grace Lee,01/21/2024,325.75,Seattle
+1008,Henry Adams,01/22/2024,215.30,new york
+1009,Iris Chen,01/23/2024,,seattle
+1010,Jack White,01/24/2024,499.99,Los Angeles
+1011,Karen Martin,01/25/2024,150.00,Chicago
+1012,Leo Stone,01/26/2024,890.00,NEW YORK
+1013,Megan Davis,01/27/2024,310.50, los angeles 
+1014,Nathan Scott,01/28/2024,275.25,Seattle
+1015,Olivia Taylor,01/29/2024,625.00,New York

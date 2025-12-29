@@ -1,0 +1,7 @@
+# Optional metadata for SQL pipeline
+# If present, values here override auto-detected values
+
+name = "retail_inventory"
+description = "Retail inventory management and supply chain pipeline: track stock levels across warehouses, monitor movements (sales, transfers, replenishment), detect stock issues (out-of-stock, overstock, aging), and generate operational and analytics reports"
+timeout_minutes = 45
+schedule = "0 1 * * *"

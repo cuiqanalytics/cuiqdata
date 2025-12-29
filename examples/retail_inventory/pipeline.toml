@@ -1,0 +1,345 @@
+[pipeline]
+name = "retail_inventory_supply_chain"
+description = "Retail inventory management and supply chain pipeline: track stock levels across warehouses, monitor movements (sales, transfers, replenishment), detect stock issues (out-of-stock, overstock, aging), and generate operational and analytics reports"
+schedule = "0 1 * * *"
+timeout_minutes = 45
+version = 1
+
+[[steps]]
+name = "ingest_inventory"
+type = "ingest"
+source = "./data/inventory.csv"
+output_table = "raw_inventory"
+description = "Load current inventory balances by SKU and warehouse"
+
+[[steps]]
+name = "ingest_movements"
+type = "ingest"
+source = "./data/movements.csv"
+output_table = "raw_movements"
+description = "Load inventory movements (sales, transfers, replenishment, damage)"
+
+[[steps]]
+name = "ingest_warehouses"
+type = "ingest"
+source = "./data/warehouses.csv"
+output_table = "raw_warehouses"
+description = "Load warehouse master data and capacity information"
+
+[[steps]]
+name = "clean_inventory"
+type = "transform"
+input_table = "raw_inventory"
+output_table = "inventory_cleaned"
+query = """
+SELECT 
+  UPPER(TRIM(sku)) as sku,
+  UPPER(TRIM(product_name)) as product_name,
+  UPPER(TRIM(warehouse_id)) as warehouse_id,
+  CAST(quantity_on_hand AS INTEGER) as quantity_on_hand,
+  CAST(COALESCE(quantity_reserved, 0) AS INTEGER) as quantity_reserved,
+  CAST(COALESCE(quantity_damaged, 0) AS INTEGER) as quantity_damaged,
+  CAST(reorder_point AS INTEGER) as reorder_point,
+  CAST(lead_time_days AS INTEGER) as lead_time_days,
+  ROUND(CAST(unit_cost AS DECIMAL(10,2)), 2) as unit_cost,
+  ROUND(CAST(retail_price AS DECIMAL(10,2)), 2) as retail_price,
+  DATE(last_received_date) as last_received_date,
+  DATE(last_counted_date) as last_counted_date,
+  COALESCE(CAST(quantity_on_hand AS INTEGER), 0) - COALESCE(CAST(quantity_reserved, 0) AS INTEGER) as available_quantity,
+  CURRENT_TIMESTAMP as processed_at
+FROM raw_inventory
+WHERE sku IS NOT NULL
+  AND warehouse_id IS NOT NULL
+"""
+
+[[steps]]
+name = "clean_movements"
+type = "transform"
+input_table = "raw_movements"
+output_table = "movements_cleaned"
+query = """
+SELECT 
+  UPPER(TRIM(movement_id)) as movement_id,
+  UPPER(TRIM(sku)) as sku,
+  UPPER(TRIM(warehouse_id)) as warehouse_id,
+  DATE(movement_date) as movement_date,
+  LOWER(TRIM(movement_type)) as movement_type,
+  CAST(quantity AS INTEGER) as quantity,
+  UPPER(TRIM(reference_id)) as reference_id,
+  LOWER(TRIM(reason)) as reason,
+  UPPER(TRIM(notes)) as notes,
+  CASE 
+    WHEN LOWER(TRIM(movement_type)) = 'sale' THEN -ABS(CAST(quantity AS INTEGER))
+    WHEN LOWER(TRIM(movement_type)) = 'replenishment' THEN ABS(CAST(quantity AS INTEGER))
+    WHEN LOWER(TRIM(movement_type)) = 'transfer' THEN CAST(quantity AS INTEGER)
+    WHEN LOWER(TRIM(movement_type)) = 'damage' THEN -ABS(CAST(quantity AS INTEGER))
+    WHEN LOWER(TRIM(movement_type)) = 'inventory_adjustment' THEN CAST(quantity AS INTEGER)
+    ELSE 0
+  END as signed_quantity,
+  CURRENT_TIMESTAMP as processed_at
+FROM raw_movements
+WHERE movement_id IS NOT NULL
+"""
+
+[[steps]]
+name = "clean_warehouses"
+type = "transform"
+input_table = "raw_warehouses"
+output_table = "warehouses_cleaned"
+query = """
+SELECT 
+  UPPER(TRIM(warehouse_id)) as warehouse_id,
+  UPPER(TRIM(warehouse_name)) as warehouse_name,
+  UPPER(TRIM(region)) as region,
+  UPPER(TRIM(country)) as country,
+  CAST(max_capacity_units AS INTEGER) as max_capacity_units,
+  ROUND(CAST(current_utilization_pct AS DECIMAL(5,2)), 2) as current_utilization_pct,
+  LOWER(TRIM(warehouse_status)) as warehouse_status
+FROM raw_warehouses
+WHERE warehouse_id IS NOT NULL
+"""
+
+[[steps]]
+name = "enrich_inventory"
+type = "transform"
+input_table = "inventory_cleaned"
+output_table = "inventory_enriched"
+query = """
+SELECT 
+  i.sku,
+  i.product_name,
+  i.warehouse_id,
+  i.quantity_on_hand,
+  i.quantity_reserved,
+  i.quantity_damaged,
+  i.available_quantity,
+  i.reorder_point,
+  i.lead_time_days,
+  i.unit_cost,
+  i.retail_price,
+  ROUND(i.unit_cost * i.quantity_on_hand, 2) as inventory_value_cost,
+  ROUND(i.retail_price * i.available_quantity, 2) as inventory_value_retail,
+  i.last_received_date,
+  i.last_counted_date,
+  DATE_DIFF('day', i.last_counted_date, CURRENT_DATE) as days_since_count,
+  w.warehouse_name,
+  w.region,
+  w.max_capacity_units,
+  w.current_utilization_pct,
+  CASE 
+    WHEN i.available_quantity <= 0 THEN 'out_of_stock'
+    WHEN i.available_quantity < i.reorder_point THEN 'low_stock'
+    WHEN i.available_quantity >= (i.reorder_point * 3) THEN 'overstock'
+    ELSE 'normal'
+  END as stock_status,
+  CASE 
+    WHEN i.available_quantity <= 0 THEN 1
+    WHEN i.available_quantity < i.reorder_point THEN 0.5
+    ELSE 0
+  END as urgency_flag,
+  CASE 
+    WHEN i.days_since_count > 30 THEN 'overdue'
+    WHEN i.days_since_count > 14 THEN 'due_soon'
+    ELSE 'current'
+  END as count_status,
+  i.processed_at
+FROM inventory_cleaned i
+LEFT JOIN warehouses_cleaned w ON i.warehouse_id = w.warehouse_id
+"""
+
+[[steps]]
+name = "validate_inventory"
+type = "validate"
+input_table = "inventory_enriched"
+query = """
+SELECT 
+  sku,
+  warehouse_id,
+  'missing_product_name' as validation_issue,
+  quantity_on_hand
+FROM inventory_enriched
+WHERE product_name IS NULL OR TRIM(product_name) = ''
+
+UNION ALL
+
+SELECT 
+  sku,
+  warehouse_id,
+  'invalid_unit_cost' as validation_issue,
+  quantity_on_hand
+FROM inventory_enriched
+WHERE unit_cost < 0
+
+UNION ALL
+
+SELECT 
+  sku,
+  warehouse_id,
+  'invalid_retail_price' as validation_issue,
+  quantity_on_hand
+FROM inventory_enriched
+WHERE retail_price <= 0
+
+UNION ALL
+
+SELECT 
+  sku,
+  warehouse_id,
+  'negative_quantity_on_hand' as validation_issue,
+  quantity_on_hand
+FROM inventory_enriched
+WHERE quantity_on_hand < 0
+
+UNION ALL
+
+SELECT 
+  sku,
+  warehouse_id,
+  'quantity_damaged_exceeds_on_hand' as validation_issue,
+  quantity_on_hand
+FROM inventory_enriched
+WHERE quantity_damaged > quantity_on_hand
+
+UNION ALL
+
+SELECT 
+  sku,
+  warehouse_id,
+  'missing_reorder_point' as validation_issue,
+  quantity_on_hand
+FROM inventory_enriched
+WHERE reorder_point IS NULL
+
+UNION ALL
+
+SELECT 
+  sku,
+  warehouse_id,
+  'inventory_count_overdue' as validation_issue,
+  quantity_on_hand
+FROM inventory_enriched
+WHERE count_status = 'overdue'
+"""
+
+[[steps]]
+name = "analyze_movements"
+type = "transform"
+input_table = "movements_cleaned"
+output_table = "movements_analyzed"
+query = """
+SELECT 
+  m.movement_id,
+  m.sku,
+  m.warehouse_id,
+  m.movement_date,
+  m.movement_type,
+  m.quantity,
+  m.signed_quantity,
+  m.reference_id,
+  m.reason,
+  m.notes,
+  i.product_name,
+  i.unit_cost,
+  i.retail_price,
+  ROUND(CAST(m.signed_quantity AS DECIMAL) * i.unit_cost, 2) as movement_cost_impact,
+  ROUND(CAST(m.signed_quantity AS DECIMAL) * i.retail_price, 2) as movement_revenue_impact,
+  CASE 
+    WHEN m.movement_type = 'sale' THEN 'customer'
+    WHEN m.movement_type = 'replenishment' THEN 'supplier'
+    WHEN m.movement_type = 'transfer' THEN 'internal'
+    WHEN m.movement_type IN ('damage', 'inventory_adjustment') THEN 'operational'
+    ELSE 'other'
+  END as movement_category,
+  ROW_NUMBER() OVER (PARTITION BY m.sku, m.warehouse_id ORDER BY m.movement_date DESC) as recency_rank
+FROM movements_cleaned m
+LEFT JOIN inventory_enriched i ON m.sku = i.sku AND m.warehouse_id = i.warehouse_id
+"""
+
+[[steps]]
+name = "generate_stock_health_report"
+type = "transform"
+input_table = "inventory_enriched"
+output_table = "stock_health_report"
+query = """
+SELECT 
+  warehouse_id,
+  warehouse_name,
+  region,
+  stock_status,
+  COUNT(*) as sku_count,
+  ROUND(SUM(quantity_on_hand), 0) as total_units_on_hand,
+  ROUND(SUM(available_quantity), 0) as total_available_units,
+  ROUND(SUM(inventory_value_cost), 2) as total_inventory_value_cost,
+  ROUND(SUM(inventory_value_retail), 2) as total_inventory_value_retail,
+  ROUND(AVG(unit_cost), 2) as avg_unit_cost,
+  COUNT(CASE WHEN urgency_flag > 0 THEN 1 END) as urgent_restocking_items,
+  COUNT(CASE WHEN count_status = 'overdue' THEN 1 END) as overdue_count_items,
+  ROUND(COUNT(CASE WHEN stock_status = 'out_of_stock' THEN 1 END)::NUMERIC / COUNT(*) * 100, 2) as out_of_stock_percentage
+FROM inventory_enriched
+GROUP BY 
+  warehouse_id,
+  warehouse_name,
+  region,
+  stock_status
+ORDER BY warehouse_id, stock_status
+"""
+
+[[steps]]
+name = "generate_daily_summary"
+type = "transform"
+input_table = "movements_analyzed"
+output_table = "daily_movement_summary"
+query = """
+SELECT 
+  movement_date,
+  warehouse_id,
+  movement_type,
+  COUNT(*) as movement_count,
+  ROUND(SUM(ABS(CAST(quantity AS DECIMAL))), 0) as total_units_moved,
+  COUNT(DISTINCT sku) as unique_skus,
+  ROUND(SUM(movement_cost_impact), 2) as cost_impact,
+  ROUND(SUM(movement_revenue_impact), 2) as revenue_impact,
+  CASE 
+    WHEN movement_type = 'sale' THEN 'revenue'
+    WHEN movement_type = 'replenishment' THEN 'investment'
+    WHEN movement_type IN ('damage', 'inventory_adjustment') THEN 'loss'
+    WHEN movement_type = 'transfer' THEN 'rebalance'
+    ELSE 'other'
+  END as impact_type
+FROM movements_analyzed
+WHERE recency_rank <= 1
+  AND movement_type IN ('sale', 'replenishment', 'transfer', 'damage')
+GROUP BY 
+  movement_date,
+  warehouse_id,
+  movement_type
+ORDER BY movement_date DESC, warehouse_id, movement_type
+"""
+
+[[steps]]
+name = "export_stock_health"
+type = "sink"
+input_table = "stock_health_report"
+destination = "./output/stock_health_report.csv"
+description = "Export stock health metrics for operations team"
+
+[[steps]]
+name = "export_low_stock_alert"
+type = "sink"
+input_table = "inventory_enriched"
+destination = "./output/low_stock_alert.csv"
+description = "Export low/out-of-stock items requiring immediate action"
+
+[[steps]]
+name = "export_daily_movements"
+type = "sink"
+input_table = "daily_movement_summary"
+destination = "./output/daily_movements.parquet"
+description = "Export daily movement summary for supply chain analytics"
+
+[[steps]]
+name = "export_all_inventory"
+type = "sink"
+input_table = "inventory_enriched"
+destination = "./output/complete_inventory.parquet"
+description = "Export complete inventory with all enrichments for analytics"

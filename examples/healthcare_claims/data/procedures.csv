@@ -1,0 +1,13 @@
+claim_id,procedure_code,procedure_description,units,provider_charges,allowed_amount
+CLM001,99213,Office visit - established patient,1,150.00,120.00
+CLM002,80053,Comprehensive metabolic panel,1,250.00,200.00
+CLM003,99285,Emergency department visit,1,5000.00,4200.00
+CLM004,90834,Medication management,1,89.99,75.00
+CLM005,71020,Chest X-ray,1,800.00,650.00
+CLM006,99213,Office visit - established patient,1,150.00,120.00
+CLM007,80053,Comprehensive metabolic panel,1,175.00,150.00
+CLM008,99223,Initial hospital inpatient,1,12000.00,10000.00
+CLM009,97161,Physical therapy eval,1,300.00,250.00
+CLM010,99213,Office visit - established patient,1,150.00,120.00
+CLM011,71020,Chest X-ray,1,400.00,350.00
+CLM012,99224,Subsequent hospital inpatient,3,5000.00,4166.67

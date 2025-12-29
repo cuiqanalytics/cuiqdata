@@ -1,0 +1,25 @@
+[pipeline]
+name = "MySQL to PostgreSQL ETL"
+description = "Load users from MySQL, transform, and sink to PostgreSQL"
+schedule = ""
+timeout_minutes = 5
+
+[[steps]]
+name = "load_from_mysql"
+type = "ingest"
+source = "mysql://localhost:3306/testdb?table=users"
+output_table = "users_mysql"
+query = ""
+
+[[steps]]
+name = "filter_usa_users"
+type = "transform"
+output_table = "users_usa"
+query = "CREATE TABLE users_usa AS SELECT * FROM users_mysql WHERE country = 'USA'"
+
+[[steps]]
+name = "write_to_postgres"
+type = "sink"
+input_table = "users_usa"
+destination = "postgres://localhost:5432/testdb?table=users_usa&schema=public&mode=replace"
+query = ""

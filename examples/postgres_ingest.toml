@@ -1,0 +1,19 @@
+[pipeline]
+name = "PostgreSQL Ingest Example"
+description = "Ingest users data from PostgreSQL and save as Parquet"
+schedule = ""
+timeout_minutes = 5
+
+[[steps]]
+name = "ingest_from_postgres"
+type = "ingest"
+source = "postgres://localhost:5432/testdb?table=users&schema=public"
+output_table = "raw_users"
+query = ""
+
+[[steps]]
+name = "export_to_parquet"
+type = "sink"
+input_table = "raw_users"
+destination = "output/postgres_users.parquet"
+query = ""

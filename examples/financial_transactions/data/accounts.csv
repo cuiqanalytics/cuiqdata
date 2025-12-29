@@ -1,0 +1,9 @@
+account_id,account_holder,account_type,opening_date,country,jurisdiction,aml_status,kyc_status,account_balance,monthly_volume_limit
+ACC001,John Smith,checking,2020-03-15,USA,NY,verified,approved,75000.00,500000.00
+ACC002,Jane Corporate Inc,business,2018-06-22,USA,CA,verified,approved,250000.00,2000000.00
+ACC003,Michael Chen,checking,2019-11-10,USA,TX,verified,approved,45000.00,500000.00
+ACC004,Robert Industries LLC,business,2017-01-05,USA,FL,verified,approved,500000.00,5000000.00
+ACC005,Sarah Johnson,savings,2021-07-14,USA,WA,verified,approved,5000.00,100000.00
+ACC006,Global Trade Ltd,business,2016-04-20,USA,ON,verified,approved,750000.00,10000000.00
+ACC007,Emily Watson,checking,2022-02-03,USA,MA,verified,approved,12000.00,500000.00
+ACC008,David Trading Corp,business,2015-08-19,USA,IL,verified,approved,1200000.00,15000000.00

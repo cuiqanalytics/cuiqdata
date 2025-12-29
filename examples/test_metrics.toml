@@ -1,0 +1,41 @@
+[pipeline]
+name = "Test Metrics Pipeline"
+description = "Simple test pipeline to verify metrics capture"
+schedule = ""
+timeout_minutes = 5
+
+[[steps]]
+name = "create_sample_data"
+type = "transform"
+output_table = "customers"
+query = """
+CREATE TABLE customers AS
+SELECT 
+    1 as customer_id, 'Alice' as name, 'USA' as country
+UNION ALL
+SELECT 2, 'Bob', 'UK'
+UNION ALL
+SELECT 3, 'Charlie', 'Canada'
+"""
+
+[[steps]]
+name = "enrich_customers"
+type = "transform"
+output_table = "customers_enriched"
+query = """
+CREATE TABLE customers_enriched AS
+SELECT 
+    customer_id,
+    name,
+    country,
+    LENGTH(name) as name_length,
+    UPPER(country) as country_upper
+FROM customers
+"""
+
+[[steps]]
+name = "export_results"
+type = "sink"
+input_table = "customers_enriched"
+destination = "output/customers_enriched.parquet"
+query = ""
