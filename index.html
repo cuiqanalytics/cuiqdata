@@ -16,6 +16,9 @@
             line-height: 1.6;
             color: #333;
             background: #fff;
+            font-weight: 400;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
         }
 
         .container {
@@ -26,7 +29,7 @@
 
         /* Hero Section */
         .hero {
-            background: linear-gradient(135deg, #8f1fab 0%, #6a0f7f 100%);
+            background: linear-gradient(135deg, #a855c6 0%, #9333ea 100%);
             color: white;
             padding: 80px 20px 100px;
             text-align: center;
@@ -57,21 +60,24 @@
 
         .cta-primary {
             display: inline-block;
-            background: #8f1fab;
+            background: #d97706;
             color: white;
             padding: 18px 48px;
             font-size: 1.2rem;
             font-weight: 600;
             text-decoration: none;
             border-radius: 8px;
-            transition: transform 0.2s, box-shadow 0.2s;
-            box-shadow: 0 4px 15px rgba(143, 27, 171, 0.3);
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(217, 119, 6, 0.3);
             margin: 10px;
+            border: 2px solid #d97706;
+            cursor: pointer;
         }
 
         .cta-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(217, 119, 6, 0.4);
+            background: #ea580c;
         }
 
         .cta-secondary {
@@ -84,12 +90,15 @@
             text-decoration: none;
             border-radius: 8px;
             border: 2px solid white;
-            transition: background 0.2s;
+            transition: all 0.3s ease;
             margin: 10px;
+            cursor: pointer;
         }
 
         .cta-secondary:hover {
-            background: rgba(255,255,255,0.1);
+            background: rgba(255,255,255,0.15);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
         }
 
         /* Demo Section */
@@ -115,14 +124,16 @@
             max-width: 900px;
             margin: 0 auto;
             background: white;
-            padding: 20px;
-            border-radius: 12px;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+            padding: 24px;
+            border-radius: 16px;
+            box-shadow: 0 12px 48px rgba(0,0,0,0.12);
+            border: 1px solid #e2e8f0;
         }
 
         .demo-container img {
             width: 100%;
-            border-radius: 8px;
+            border-radius: 12px;
+            display: block;
         }
 
         /* Benefits Section */
@@ -149,12 +160,16 @@
         .benefit-card {
             padding: 30px;
             background: #f8f9fa;
-            border-radius: 8px;
-            transition: transform 0.2s;
+            border-radius: 12px;
+            transition: all 0.3s ease;
+            border: 1px solid #e2e8f0;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
         }
 
         .benefit-card:hover {
-            transform: translateY(-5px);
+            transform: translateY(-6px);
+            box-shadow: 0 12px 24px rgba(143, 27, 171, 0.15);
+            border-color: #8f1fab;
         }
 
         .benefit-card h3 {
@@ -197,9 +212,18 @@
         }
 
         .comparison-item {
-            background: rgba(255,255,255,0.1);
+            background: rgba(255,255,255,0.08);
             padding: 25px;
-            border-radius: 8px;
+            border-radius: 12px;
+            border: 1px solid rgba(255,255,255,0.15);
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .comparison-item:hover {
+            background: rgba(255,255,255,0.12);
+            border-color: rgba(255,255,255,0.3);
+            transform: translateY(-4px);
         }
 
         .comparison-item h4 {
@@ -246,8 +270,15 @@
             margin-bottom: 40px;
             padding: 30px;
             background: #faf8fc;
-            border-radius: 8px;
+            border-radius: 12px;
             border-left: 4px solid #8f1fab;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+            transition: all 0.3s ease;
+        }
+
+        .step:hover {
+            box-shadow: 0 8px 20px rgba(143, 27, 171, 0.12);
+            transform: translateX(4px);
         }
 
         .step h3 {
@@ -285,16 +316,24 @@
         .badge {
             background: white;
             padding: 15px 30px;
-            border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            border-radius: 10px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.08);
             font-weight: 600;
             color: #4a5568;
+            border: 1px solid #e2e8f0;
+            transition: all 0.3s ease;
+            cursor: default;
+        }
+
+        .badge:hover {
+            box-shadow: 0 6px 20px rgba(143, 27, 171, 0.15);
+            transform: translateY(-2px);
         }
 
         /* Final CTA Section */
         .final-cta {
             padding: 100px 20px;
-            background: linear-gradient(135deg, #8f1fab 0%, #6a0f7f 100%);
+            background: linear-gradient(135deg, #a855c6 0%, #9333ea 100%);
             color: white;
             text-align: center;
         }
@@ -315,20 +354,56 @@
         header {
             background: white;
             border-bottom: 1px solid #e2e8f0;
-            padding: 16px 20px;
+            padding: 12px 20px;
             position: sticky;
             top: 0;
             z-index: 100;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
         }
 
         header .container {
             display: flex;
             align-items: center;
+            justify-content: space-between;
         }
 
         header img {
             height: 40px;
             width: auto;
+        }
+
+        header .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        header .nav-links a {
+            color: #4a5568;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: color 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        header .nav-links a:hover {
+            color: #8f1fab;
+        }
+
+        header .github-icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 20px;
+            height: 20px;
+            background: #2d3748;
+            color: white;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: bold;
         }
 
         /* Responsive */
@@ -358,6 +433,11 @@
     <header>
         <div class="container">
             <img src="static/cuiqDATA.svg" alt="cuiqData" />
+            <div class="nav-links">
+                <a href="https://github.com/cuiqanalytics/cuiqdata" target="_blank" rel="noopener noreferrer">
+                    <span class="github-icon">★</span> Star us on Github
+                </a>
+            </div>
         </div>
     </header>
 
@@ -455,20 +535,33 @@
             <p class="intro">Your first pipeline runs in under 2 minutes</p>
             <div class="steps">
                 <div class="step">
-                    <h3>Step 1: Install cuiqData</h3>
-                    <p>Download the single binary for your platform. No dependencies to install.</p>
-                    <code>cuiqdata demo<br>cd demo</code>
+                    <h3>Step 1: Download & Install</h3>
+                    <p>Download the precompiled binary or installer for your platform from the <a href="https://github.com/cuiqanalytics/cuiqdata/releases" target="_blank" rel="noopener noreferrer" style="color: #8f1fab; font-weight: 600;">GitHub Releases</a> page.</p>
+                    <code>
+                        # Linux (MacOS version soon)<br>
+                        curl -L https://github.com/cuiqanalytics/cuiqdata/releases/download/latest/cuiqdata -o cuiqdata<br>
+                        chmod +x cuiqdata<br>
+                        ./cuiqdata demo<br>
+                        <br>
+                        # Windows (download installer)<br>
+                        # https://github.com/cuiqanalytics/cuiqdata/releases/download/v0.3.1/cuiqdata-windows-x64.exe<br>
+                        # Then run: cuiqdata demo
+                    </code>
                 </div>
                 <div class="step">
                     <h3>Step 2: Run Your First Pipeline</h3>
-                    <p>Execute the demo pipeline with sample data included.</p>
-                    <code>cuiqdata run sql</code>
+                    <p>Navigate to the demo project and execute the sample pipeline.</p>
+                    <code>cd demo<br>cuiqdata run sql</code>
                 </div>
                 <div class="step">
                     <h3>Step 3: See the Results</h3>
                     <p>View execution summary, cached steps, and output data instantly.</p>
                     <code>✅ Pipeline completed in 399ms<br>📊 3/3 steps executed (100%)<br>📈 Total rows processed: 30</code>
                 </div>
+            </div>
+            <div style="text-align: center; margin-top: 50px; padding-top: 30px; border-top: 1px solid #e2e8f0;">
+                <p style="margin-bottom: 16px; color: #4a5568;">For detailed documentation and advanced usage, see the full:</p>
+                <a href="https://github.com/cuiqanalytics/cuiqdata" target="_blank" rel="noopener noreferrer" class="cta-secondary" style="display: inline-block; background: #8f1fab; color: white; border: none;">Read the Full README</a>
             </div>
         </div>
     </section>
