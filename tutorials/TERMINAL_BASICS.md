@@ -1,5 +1,9 @@
 # Terminal Basics
 
+## Introduction
+
+**ciuqData** is a command-line interface for data processing and analysis and the main operation workflow occurs in the terminal. The following tutorial will guide you through the basics of using the terminal.
+
 ## Opening a Terminal
 
 **Windows:**
@@ -149,6 +153,8 @@ name,age,city
 Alice,28,Boston
 Bob,35,Seattle
 ```
+
+**Tip:** In Windows you can type `explorer .` to open the current directory in File Explorer.
 
 ## Closing
 
