@@ -92,7 +92,7 @@ Congratulations! You've run your first pipeline with cuiqData.  The results are 
 
 ### What's next
 
-Open the directory `demo` in your file explorer or terminal, and examine the contents of the `sql` directory. Make some changes, for example, let's change de `002_transform.sql`. Open the file in your preferred text editor, locate the line with `username` and change it to `UPPER(username) as username_upper`, like the following: 
+Use your favorite text editor or IDE and open the `002_transform.sql` file. Make some changes, for example, let's change de `002_transform.sql`. Locate the line with `username` and change it to `UPPER(username) as username_upper`, like the following: 
 
 ```sql
 -- Classify users by tier and extract year
@@ -111,6 +111,8 @@ SELECT
   YEAR(signup_date) as signup_year
 FROM ingest
 ```
+
+Save your file. Make sure the extension is `.sql` (and not `.sql.txt`)
 
 What are we doing? `UPPER` is a SQL function that converts all characters in a string to uppercase. So, in the transform step where are changing the username field to uppercase.
 
