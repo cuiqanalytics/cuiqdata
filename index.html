@@ -23,9 +23,9 @@
     <section class="hero">
         <div class="hero-bg"></div>
         <div class="container">
-            <h1>Build Data Pipelines in Minutes, Not Days</h1>
-            <p class="subheadline">Fast, local SQL orchestration without the infrastructure headache</p>
-            <p class="description">No Airflow. No Kubernetes. No Python DAGs. Just numbered SQL files and instant results.</p>
+            <h1>Make your life with data simpler</h1>
+            <p class="subheadline"><strong>cuiqData</strong> is a simple, fast, and local SQL execution engine without the infrastructure headache</p>
+            <p class="description">No Airflow. No Kubernetes. No Python DAGs. Just numbered SQL files and instant results and traceability</p>
             <div>
                 <a href="https://github.com/cuiqanalytics/cuiqdata/releases" class="cta-primary">Download Free Now</a>
                 <a href="#demo" class="cta-secondary">See How It Works</a>
@@ -117,25 +117,28 @@
                     <h3>Step 1: Download & Install</h3>
                     <p>Download the precompiled binary or installer for your platform from the <a href="https://github.com/cuiqanalytics/cuiqdata/releases" target="_blank" rel="noopener noreferrer" style="color: #8f1fab; font-weight: 600;">GitHub Releases</a> page.</p>
                     <code>
-                        # Linux (MacOS version soon)<br>
-                        curl -L https://github.com/cuiqanalytics/cuiqdata/releases/download/latest/cuiqdata -o cuiqdata<br>
+                        # On Linux (MacOS version soon)<br>
+                        curl -L https://github.com/cuiqanalytics/cuiqdata/releases/download/v0.3.1/cuiqdata-linux-x86-64 -o cuiqdata<br>
                         chmod +x cuiqdata<br>
-                        ./cuiqdata demo<br>
-                        <br>
-                        # Windows (download installer)<br>
-                        # https://github.com/cuiqanalytics/cuiqdata/releases/download/v0.3.1/cuiqdata-windows-x64.exe<br>
-                        # Then run: cuiqdata demo
                     </code>
                 </div>
                 <div class="step">
                     <h3>Step 2: Run Your First Pipeline</h3>
-                    <p>Navigate to the demo project and execute the sample pipeline.</p>
-                    <code>cd demo<br>cuiqdata run sql</code>
+                    <p>Open a terminal Navigate to the demo project and execute the sample pipeline.</p>
+                    <code>
+                        ./cuiqdata demo<br>
+                        cd demo<br>
+                        ./cuiqdata run sql</code>
                 </div>
                 <div class="step">
                     <h3>Step 3: See the Results</h3>
                     <p>View execution summary, cached steps, and output data instantly.</p>
-                    <code>✅ Pipeline completed in 399ms<br>📊 3/3 steps executed (100%)<br>📈 Total rows processed: 30</code>
+                    <code>
+                    ✅ Pipeline completed in 383ms<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;📊 3/3 steps executed (100%)<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;⏱️  Duration: 383ms<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;📈 Total rows processed: 30    
+                    </code>
                 </div>
             </div>
             <div style="text-align: center; margin-top: 50px; padding-top: 30px; border-top: 1px solid #e2e8f0;">
@@ -157,16 +160,17 @@
                     <p class="price">$0</p>
                     <p class="price-subtitle">Forever</p>
                     <ul>
-                        <li>✓ Direct DuckDB SQL execution</li>
-                        <li>✓ Step replay & caching</li>
-                        <li>✓ Event-sourced logging</li>
-                        <li>✓ Excel/CSV/Parquet/DB ingestion</li>
-                        <li>✓ Basic CLI tools</li>
-                        <li>✓ Single-user local development</li>
-                        <li>✓ Advanced TOML-based pipelines</li>
+                        <li>✅ Direct DuckDB SQL execution</li>
+                        <li>✅ Step replay & caching</li>
+                        <li>✅ Event-sourced logging</li>
+                        <li>✅ Excel/CSV/Parquet/DB ingestion</li>
+                        <li>✅ Basic CLI tools</li>
+                        <li>✅ Single-user local development</li>
+                        <li>✅ Advanced TOML-based pipelines</li>
+                        <li>✅ Summary HTML execution report</li>
                         <li class="limit">Max: 1 active pipeline</li>
                     </ul>
-                    <a href="https://github.com/cuiqanalytics/cuiqdata/releases" class="cta-secondary">Download Now</a>
+                    <a href="https://github.com/cuiqanalytics/cuiqdata/releases" class="cta-primary">Download Now</a>
                 </div>
 
                 <!-- Pro Tier -->
@@ -176,15 +180,15 @@
                     <p class="price">$39</p>
                     <p class="price-subtitle">per user/month (Annual: $30)</p>
                     <ul>
-                        <li>✓ Everything in Free</li>
-                        <li>✓ Cron scheduling & automation</li>
-                        <li>✓ Team workspaces (5 users)</li>
-                        <li>✓ Access control (RBAC)</li>
-                        <li>✓ Audit logs & compliance</li>
-                        <li>✓ Shared web dashboard</li>
-                        <li>✓ Slack/Email alerts</li>
-                        <li>✓ Query profiling & metrics</li>
-                        <li>✓ Data quality rules & SLA monitoring</li>
+                        <li>✅ Everything in Free</li>
+                        <li>✅ Cron scheduling & automation</li>
+                        <li>✅ Team workspaces (5 users)</li>
+                        <li>✅ Access control (RBAC)</li>
+                        <li>✅ Audit logs & compliance</li>
+                        <li>✅ Shared web dashboard</li>
+                        <li>✅ Slack/Email alerts</li>
+                        <li>✅ Query profiling & metrics</li>
+                        <li>✅ Data quality rules & SLA monitoring</li>
                         <li class="limit">Max: 10 concurrent pipelines</li>
                     </ul>
                     <a href="mailto:sales@cuiqanalytics.com" class="cta-primary">Start Free Trial</a>
@@ -196,18 +200,18 @@
                     <p class="price">Custom</p>
                     <p class="price-subtitle">Volume & feature-based pricing</p>
                     <ul>
-                        <li>✓ Everything in Pro</li>
-                        <li>✓ Cloud storage connectors</li>
-                        <li>✓ Database sources/sinks</li>
-                        <li>✓ Advanced streaming (Kafka)</li>
-                        <li>✓ Custom DuckDB extensions</li>
-                        <li>✓ SSO/SAML authentication</li>
-                        <li>✓ Self-hosted deployment</li>
-                        <li>✓ Data encryption at rest</li>
-                        <li>✓ Priority support & SLA</li>
+                        <li>✅ Everything in Pro</li>
+                        <li>✅ Cloud storage connectors</li>
+                        <li>✅ Database sources/sinks</li>
+                        <li>✅ Advanced streaming (Kafka)</li>
+                        <li>✅ Custom DuckDB extensions</li>
+                        <li>✅ SSO/SAML authentication</li>
+                        <li>✅ Self-hosted deployment</li>
+                        <li>✅ Data encryption at rest</li>
+                        <li>✅ Priority support & SLA</li>
                         <li class="limit">Unlimited pipelines</li>
                     </ul>
-                    <a href="mailto:sales@cuiqanalytics.com" class="cta-primary">Contact Sales</a>
+                    <a href="mailto:contact@cuiqanalytics.com" class="cta-primary">Contact Sales</a>
                 </div>
             </div>
 
@@ -226,57 +230,57 @@
                     <tbody>
                         <tr>
                             <td>Core SQL Execution</td>
-                            <td>✓</td>
-                            <td>✓</td>
-                            <td>✓</td>
+                            <td>✅</td>
+                            <td>✅</td>
+                            <td>✅</td>
                         </tr>
                         <tr>
                             <td>Step Replay & Caching</td>
-                            <td>✓</td>
-                            <td>✓</td>
-                            <td>✓</td>
+                            <td>✅</td>
+                            <td>✅</td>
+                            <td>✅</td>
                         </tr>
                         <tr>
                             <td>Cron Scheduling</td>
                             <td>—</td>
-                            <td>✓</td>
-                            <td>✓</td>
+                            <td>✅</td>
+                            <td>✅</td>
                         </tr>
                         <tr>
                             <td>Team Workspaces</td>
                             <td>—</td>
-                            <td>✓</td>
-                            <td>✓</td>
+                            <td>✅</td>
+                            <td>✅</td>
                         </tr>
                         <tr>
                             <td>Access Control (RBAC)</td>
                             <td>—</td>
-                            <td>✓</td>
-                            <td>✓</td>
+                            <td>✅</td>
+                            <td>✅</td>
                         </tr>
                         <tr>
                             <td>Cloud Storage Connectors</td>
                             <td>—</td>
                             <td>—</td>
-                            <td>✓</td>
+                            <td>✅</td>
                         </tr>
                         <tr>
                             <td>Database Sources/Sinks</td>
                             <td>—</td>
                             <td>—</td>
-                            <td>✓</td>
+                            <td>✅</td>
                         </tr>
                         <tr>
                             <td>SSO/SAML</td>
                             <td>—</td>
                             <td>—</td>
-                            <td>✓</td>
+                            <td>✅</td>
                         </tr>
                         <tr>
                             <td>Self-Hosted Deployment</td>
                             <td>—</td>
                             <td>—</td>
-                            <td>✓</td>
+                            <td>✅</td>
                         </tr>
                     </tbody>
                 </table>
