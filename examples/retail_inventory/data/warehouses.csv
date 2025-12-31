@@ -1,3 +1,0 @@
-warehouse_id,warehouse_name,region,country,max_capacity_units,current_utilization_pct,warehouse_status
-WH001,East Coast Distribution,Northeast,USA,10000,65.5,operational
-WH002,West Coast Distribution,West,USA,8000,48.3,operational
