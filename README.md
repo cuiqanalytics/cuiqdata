@@ -14,7 +14,7 @@ Install once. Then build pipelines in minutes.
 
 **cuiqData Free** (this repository) provides local SQL orchestration for individual developers and small teams. It includes all core features: pipeline execution, caching, logging, and reports.
 
-**cuiqData Pro** offers advanced features for enterprises, including scheduling, web ui, collaborative workspaces, cloud deployment, and support. Learn more at [cuiqData](https://www.cuiqanalytics.com/cuiqdata.html).
+**cuiqData Pro** offers advanced features for teams running pipelines in production, including scheduling, database connectors, alerts, performance monitoring, and data quality rules. Learn more at [cuiqData](https://www.cuiqanalytics.com/cuiqdata.html).
 
 ---
 
