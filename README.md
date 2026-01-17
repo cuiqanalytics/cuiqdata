@@ -231,6 +231,180 @@ cuiqdata run pipeline.toml
 
 ---
 
+## 🗓️ Background Scheduler
+
+cuiqData includes a **production-ready background scheduler** for running pipelines on a schedule. No additional infrastructure needed—just cron expressions and local SQLite.
+
+### Quick Start: Schedule a Pipeline
+
+**Step 1: Start the scheduler**
+```bash
+cuiqdata server start
+```
+The scheduler runs on `127.0.0.1:5000` and monitors scheduled pipelines every 60 seconds.
+
+**Step 2: Queue a pipeline for async execution**
+```bash
+# Fire-and-forget: returns immediately with a run ID
+cuiqdata run --scheduler my_pipeline
+
+# Output:
+# ✅ Pipeline queued successfully
+# Pipeline: my_pipeline
+# Run ID: abc123-def456
+# 📊 Monitor execution: cuiqdata logs abc123-def456
+```
+
+**Step 3: Monitor execution via REST API**
+```bash
+# Check scheduler status
+curl http://127.0.0.1:5000/api/status
+
+# View execution logs
+curl http://127.0.0.1:5000/api/logs?limit=10
+
+# Get diagnostics
+curl http://127.0.0.1:5000/api/diagnostics
+```
+
+### Cron-Based Scheduling
+
+Schedule pipelines using standard cron expressions:
+
+```bash
+# Create a cron schedule via API
+curl -X POST http://127.0.0.1:5000/api/pipelines/my_pipeline/schedule \
+  -d '{"cron": "0 9 * * 1-5"}'
+# Runs weekdays at 9am
+```
+
+**Supported cron formats:**
+- `0 9 * * 1-5` - Weekdays at 9am
+- `*/5 * * * *` - Every 5 minutes
+- `0 0 1 * *` - Monthly on the 1st
+- `@hourly` / `@daily` / `@weekly` - Special strings
+
+### Key Features
+
+✅ **Fire-and-Forget Execution** - Queue pipelines and let the scheduler handle it  
+✅ **Cron-Based Scheduling** - Standard 5-field cron expressions  
+✅ **Complete Audit Trail** - All operations logged for reproducibility  
+✅ **REST API Access** - 25+ endpoints for monitoring and control  
+✅ **Zero Infrastructure** - Runs locally with SQLite  
+✅ **Automatic Cleanup** - Old runs cleaned up automatically  
+✅ **Duplicate Prevention** - Prevents multiple runs within check interval  
+
+### API Endpoints
+
+**Pipeline Management:**
+- `POST /api/pipelines/:name/trigger` - Manually trigger a pipeline
+- `GET /api/pipelines` - List all scheduled pipelines
+- `GET /api/pipelines/:name` - Get pipeline details
+
+**Run Management:**
+- `GET /api/runs` - List recent runs
+- `GET /api/runs/:run_id` - Get run details
+- `GET /api/runs/:run_id/steps` - Get step execution details
+- `POST /api/runs/:run_id/replay` - Re-execute a previous run
+- `POST /api/runs/:run_id/cancel` - Cancel a running pipeline
+
+**Logs & Export:**
+- `GET /api/logs` - View execution logs with pagination
+- `GET /api/logs/:run_id` - Logs for specific run
+- `GET /api/export/logs?format=csv` - Export logs (JSON or CSV)
+
+**Monitoring & Settings:**
+- `GET /api/status` - Scheduler status and stats
+- `GET /api/diagnostics` - Detailed health metrics
+- `GET /api/settings` - Current configuration
+- `POST /api/settings` - Update configuration
+
+### Traditional vs Async Execution
+
+| Aspect | Traditional | With --scheduler |
+|--------|------------|-------------------|
+| **Execution** | Synchronous | Asynchronous |
+| **CLI waits** | Yes | No (returns immediately) |
+| **Monitoring** | Real-time in CLI | Via API/Web UI |
+| **Return** | Results | Run ID |
+| **Use case** | Development | Production scheduling |
+
+```bash
+# Traditional: waits for completion
+cuiqdata run my_pipeline
+
+# Async: returns immediately
+cuiqdata run --scheduler my_pipeline
+```
+
+### Common Scheduler Tasks
+
+**View all runs:**
+```bash
+curl http://127.0.0.1:5000/api/runs?limit=20
+```
+
+**Get a specific run status:**
+```bash
+curl http://127.0.0.1:5000/api/runs/abc123-def456
+```
+
+**Export logs to CSV:**
+```bash
+curl http://127.0.0.1:5000/api/export/logs?format=csv > logs.csv
+```
+
+**Get scheduler health:**
+```bash
+curl http://127.0.0.1:5000/api/diagnostics
+```
+
+### Advanced: Cron Expressions
+
+Full cron expression support with examples:
+
+```
+0 9 * * 1-5      # Weekdays at 9:00 AM
+0 */6 * * *      # Every 6 hours
+30 2 * * *       # Daily at 2:30 AM  
+0 0 1 * *        # Monthly on the 1st
+0 0 * * 0        # Weekly on Sunday
+*/15 * * * *     # Every 15 minutes
+@hourly          # Top of every hour
+@daily           # Midnight daily
+@weekly          # Sunday midnight
+@monthly         # 1st of month at midnight
+@yearly          # January 1st at midnight
+```
+
+### Scheduler Configuration
+
+Configure via the REST API:
+
+```bash
+# Get current settings
+curl http://127.0.0.1:5000/api/settings
+
+# Update settings
+curl -X POST http://127.0.0.1:5000/api/settings \
+  -d '{"check_interval_secs": "60", "max_age_hours": "720"}'
+```
+
+**Configuration Options:**
+- `check_interval_secs` - How often to check schedules (default: 60)
+- `max_age_hours` - Keep runs for N hours before cleanup (default: 720 = 30 days)
+- `log_level` - Logging verbosity (default: info)
+
+### Database
+
+Scheduler data is stored in `~/.cuiqdata/scheduler.db` (SQLite):
+- Separate from main cuiqData database
+- 4 tables: scheduled_pipelines, pipeline_runs, pipeline_run_steps, scheduler_state
+- Automatic schema creation
+- Full audit trail via event logging
+
+---
+
 ## Features
 
 - **Local-first**: No infrastructure. DuckDB + SQLite, everything local.
@@ -293,8 +467,13 @@ Bash scripts are great for one-off automation, but they fall apart with data pip
 
 ## What's Next?
 
+### Want to schedule pipelines?
+See the **Background Scheduler** section above for cron-based automation without extra infrastructure.
+
+### Learn more:
 - ⭐ [Star on GitHub](https://github.com/cuiqanalytics/cuiqdata)
 - 💬 [Join our Discord](https://discord.gg/3yhqhZ4RR8)
+- 📚 [Full Documentation](SCHEDULER_QUICK_START.md) - Scheduler usage guide
 - 🚀 [Pro Features](https://www.cuiqanalytics.com/cuiqdata.html)
 
 ---
