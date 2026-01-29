@@ -20,8 +20,8 @@ tutorials/**/*.html
 tutorials/**/output/*
 
 # Allow another directory but ignore a subdirectory inside it
-!examples/
-!examples/**
+examples/
+examples/**
 examples/**/*.db
 examples/**/*.html
 examples/**/*.py

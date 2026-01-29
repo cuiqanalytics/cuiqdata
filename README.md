@@ -321,13 +321,13 @@ curl -X POST http://127.0.0.1:5000/api/pipelines/my_pipeline/schedule \
 
 ### Traditional vs Async Execution
 
-| Aspect | Traditional | With --scheduler |
-|--------|------------|-------------------|
-| **Execution** | Synchronous | Asynchronous |
-| **CLI waits** | Yes | No (returns immediately) |
-| **Monitoring** | Real-time in CLI | Via API/Web UI |
-| **Return** | Results | Run ID |
-| **Use case** | Development | Production scheduling |
+| Aspect         | Traditional      | With --scheduler         |
+| -------------- | ---------------- | ------------------------ |
+| **Execution**  | Synchronous      | Asynchronous             |
+| **CLI waits**  | Yes              | No (returns immediately) |
+| **Monitoring** | Real-time in CLI | Via API/Web UI           |
+| **Return**     | Results          | Run ID                   |
+| **Use case**   | Development      | Production scheduling    |
 
 ```bash
 # Traditional: waits for completion
