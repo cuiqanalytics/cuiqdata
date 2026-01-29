@@ -474,7 +474,7 @@ See the **Background Scheduler** section above for cron-based automation without
 - ⭐ [Star on GitHub](https://github.com/cuiqanalytics/cuiqdata)
 - 💬 [Join our Discord](https://discord.gg/3yhqhZ4RR8)
 - 📚 [Full Documentation](SCHEDULER_QUICK_START.md) - Scheduler usage guide
-- 🚀 [Pro Features](https://www.cuiqanalytics.com/cuiqdata.html)
+- 🚀 [Pro Features](https://www.cuiqdata.com)
 
 ---
 
