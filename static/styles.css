@@ -340,6 +340,18 @@ body {
     margin: 0 auto;
 }
 
+.pricing-grid-two {
+    grid-template-columns: repeat(2, minmax(280px, 420px));
+    justify-content: center;
+    max-width: 900px;
+}
+
+.price-note {
+    font-size: 0.8rem;
+    color: #718096;
+    margin: -8px 0 12px;
+}
+
 .pricing-card {
     padding: 30px 24px;
     background: #f8f9fa;

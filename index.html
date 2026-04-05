@@ -23,9 +23,9 @@
     <section class="hero">
         <div class="hero-bg"></div>
         <div class="container">
-            <h1>Make your life with data simpler</h1>
-            <p class="subheadline"><strong>cuiqData</strong> is a simple, fast, and local SQL execution engine without the infrastructure headache</p>
-            <p class="description">No Airflow. No Kubernetes. No Python DAGs. Just numbered SQL files and instant results and traceability</p>
+            <h1>Run SQL Pipelines on Your Laptop</h1>
+            <p class="subheadline">No Airflow. No Python. No cloud bill.</p>
+            <p class="description">Write numbered SQL files, run <code>cuiqdata run sql</code>, and get instant results with step-level caching. A single binary, no dependencies, works on macOS, Windows, and Linux.</p>
             <div>
                 <a href="https://github.com/cuiqanalytics/cuiqdata/releases" class="cta-primary">Download Free Now</a>
                 <a href="#demo" class="cta-secondary">See How It Works</a>
@@ -152,24 +152,21 @@
     <!-- Pricing Section -->
     <section class="paid-version">
         <div class="container">
-            <h2>Simple Pricing for Every Scale</h2>
-            <p class="subtitle">Start free. Scale with confidence.</p>
-            <div class="pricing-grid">
+            <h2>Simple, Honest Pricing</h2>
+            <p class="subtitle">Free forever for individuals. One-time payment for Pro — no subscriptions, no renewal pressure.</p>
+            <div class="pricing-grid pricing-grid-two">
                 <!-- Free Tier -->
                 <div class="pricing-card">
                     <h3>Free</h3>
                     <p class="price">$0</p>
                     <p class="price-subtitle">Forever</p>
                     <ul>
-                        <li>✅ Direct DuckDB SQL execution</li>
-                        <li>✅ Step replay & caching</li>
-                        <li>✅ Event-sourced logging</li>
-                        <li>✅ Excel/CSV/Parquet/DB ingestion</li>
-                        <li>✅ Basic CLI tools</li>
-                        <li>✅ Single-user local development</li>
-                        <li>✅ Advanced TOML-based pipelines</li>
-                        <li>✅ Summary HTML execution report</li>
-                        <li class="limit">Max: 1 active pipeline</li>
+                        <li>✅ SQL mode &amp; TOML pipelines</li>
+                        <li>✅ Step replay &amp; caching</li>
+                        <li>✅ Template variables (dates, env vars)</li>
+                        <li>✅ CSV / Parquet / JSON / Excel I/O</li>
+                        <li>✅ Immutable execution logs</li>
+                        <li>✅ No pipeline or row limits</li>
                     </ul>
                     <a href="https://github.com/cuiqanalytics/cuiqdata/releases" class="cta-primary">Download Now</a>
                 </div>
@@ -178,38 +175,18 @@
                 <div class="pricing-card featured">
                     <div class="badge-popular">Most Popular</div>
                     <h3>Pro</h3>
-                    <p class="price">$39</p>
-                    <p class="price-subtitle">per user/month (Annual: $30)</p>
+                    <p class="price">$49</p>
+                    <p class="price-subtitle">one-time · includes 1 year of updates</p>
                     <ul>
                         <li>✅ Everything in Free</li>
-                        <li>✅ Cron scheduling & automation</li>
-                        <li>✅ Database connectors (MySQL, PostgreSQL, Excel)</li>
-                        <li>✅ Recursive queries & advanced SQL</li>
-                        <li>✅ Execution history & audit logs</li>
-                        <li>✅ Slack/Email alerts on failures</li>
-                        <li>✅ Query profiling & performance metrics</li>
-                        <li>✅ Data quality rules & SLA monitoring</li>
-                        <li class="limit">Max: Unlimited pipelines</li>
+                        <li>✅ Background scheduler (<code>cuiqdata server start</code>)</li>
+                        <li>✅ Cron expressions &amp; <code>@daily</code> shorthands</li>
+                        <li>✅ HTML execution reports (<code>cuiqdata report</code>)</li>
+                        <li>✅ Database connectors (MySQL, PostgreSQL)</li>
+                        <li>✅ Unlimited run history</li>
                     </ul>
-                    <a href="mailto:sales@cuiqanalytics.com" class="cta-primary">Start Free Trial</a>
-                </div>
-
-                <!-- Enterprise Tier -->
-                <div class="pricing-card">
-                    <h3>Enterprise</h3>
-                    <p class="price">Custom</p>
-                    <p class="price-subtitle">Advanced features & support</p>
-                    <ul>
-                        <li>✅ Everything in Pro</li>
-                        <li>✅ Advanced streaming (Kafka, etc.)</li>
-                        <li>✅ Cloud storage connectors (S3, GCS, Azure)</li>
-                        <li>✅ Custom DuckDB extensions</li>
-                        <li>✅ Self-hosted deployment support</li>
-                        <li>✅ Priority support & SLA</li>
-                        <li>✅ Custom integrations</li>
-                        <li class="limit">Unlimited everything</li>
-                    </ul>
-                    <a href="mailto:contact@cuiqanalytics.com" class="cta-primary">Contact Sales</a>
+                    <p class="price-note">Optional renewal at $19/year after year 1.</p>
+                    <a href="https://gumroad.com/cuiqanalytics" class="cta-primary" target="_blank" rel="noopener noreferrer">Get Pro →</a>
                 </div>
             </div>
 
@@ -222,7 +199,6 @@
                             <th>Feature</th>
                             <th>Free</th>
                             <th>Pro</th>
-                            <th>Enterprise</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -230,71 +206,44 @@
                             <td>Core SQL Execution</td>
                             <td>✅</td>
                             <td>✅</td>
+                        </tr>
+                        <tr>
+                            <td>Step Replay &amp; Caching</td>
+                            <td>✅</td>
                             <td>✅</td>
                         </tr>
                         <tr>
-                            <td>Step Replay & Caching</td>
-                            <td>✅</td>
+                            <td>Template Variables</td>
                             <td>✅</td>
                             <td>✅</td>
                         </tr>
                         <tr>
-                            <td>Event-Sourced Logging</td>
+                            <td>Immutable Execution Logs</td>
                             <td>✅</td>
                             <td>✅</td>
+                        </tr>
+                        <tr>
+                            <td>Background Scheduler</td>
+                            <td>—</td>
                             <td>✅</td>
                         </tr>
                         <tr>
                             <td>Cron Scheduling</td>
                             <td>—</td>
                             <td>✅</td>
-                            <td>✅</td>
                         </tr>
                         <tr>
-                            <td>Database Connectors</td>
-                            <td>—</td>
-                            <td>✅</td>
-                            <td>✅</td>
-                        </tr>
-                        <tr>
-                            <td>Recursive Queries</td>
-                            <td>—</td>
-                            <td>✅</td>
-                            <td>✅</td>
-                        </tr>
-                        <tr>
-                            <td>Slack/Email Alerts</td>
-                            <td>—</td>
-                            <td>✅</td>
-                            <td>✅</td>
-                        </tr>
-                        <tr>
-                            <td>Query Profiling & Metrics</td>
-                            <td>—</td>
-                            <td>✅</td>
-                            <td>✅</td>
-                        </tr>
-                        <tr>
-                            <td>Data Quality Rules</td>
-                            <td>—</td>
-                            <td>✅</td>
-                            <td>✅</td>
-                        </tr>
-                        <tr>
-                            <td>Advanced Streaming (Kafka)</td>
-                            <td>—</td>
+                            <td>HTML Execution Reports</td>
                             <td>—</td>
                             <td>✅</td>
                         </tr>
                         <tr>
-                            <td>Cloud Storage Connectors</td>
-                            <td>—</td>
+                            <td>Database Connectors (MySQL, PostgreSQL)</td>
                             <td>—</td>
                             <td>✅</td>
                         </tr>
                         <tr>
-                            <td>Custom DuckDB Extensions</td>
-                            <td>—</td>
+                            <td>Unlimited Run History</td>
                             <td>—</td>
                             <td>✅</td>
                         </tr>

@@ -1,12 +1,10 @@
-# cuiqData: Fast, Local SQL Orchestration
+# cuiqData: Run SQL Pipelines on Your Laptop
+
+Run SQL data pipelines on your laptop. No Airflow. No Python. No cloud bill.
+
+Write numbered SQL files (`001_ingest.sql`, `002_transform.sql`…), run `cuiqdata run sql`, and get instant results with step-level caching. A single binary, no dependencies, works on macOS, Windows, and Linux.
 
 ![Platforms](https://img.shields.io/badge/platform-macOS%20%7C%20Windows%20%7C%20Linux-blue) ![DuckDB](https://img.shields.io/badge/engine-DuckDB-yellow) ![Local First](https://img.shields.io/badge/local--first-yes-success) ![Single Binary](https://img.shields.io/badge/single--binary-yes-informational) ![No Dependencies](https://img.shields.io/badge/dependencies-none-brightgreen)
-
-cuiqData lets you build and run data pipelines using **only SQL** — locally, fast, and without infrastructure.
-
-No Airflow. No Kubernetes. No Python DAGs. Just numbered SQL files, instant feedback, and cached re-runs.
-
-Install once. Then build pipelines in minutes.
 
 ![Demo](demo.gif)
 
@@ -412,6 +410,16 @@ Scheduler data is stored in `~/.cuiqdata/scheduler.db` (SQLite):
 - **SQL + Config**: Write DuckDB SQL directly (no YAML or Python DSLs).
 - **Zero dependencies**: Single binary. No Python, no Node, no Rust.
 - **Immutable logs**: Execution history with event-sourcing for reproducibility.
+
+---
+
+## Pricing
+
+**Free**: Core pipeline execution, caching, replay, templating, SQL mode, TOML mode. No limits for individual use.
+
+**Pro** ($49 one-time): Background scheduler (`cuiqdata server start`), HTML execution reports (`cuiqdata report`), database connectors (MySQL, PostgreSQL), unlimited run history.
+
+[Get Pro →](https://gumroad.com/cuiqanalytics) · Includes 1 year of updates. Optional renewal at $19/year after that.
 
 ---
 
