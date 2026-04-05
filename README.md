@@ -217,6 +217,7 @@ Use `pipeline.toml` when you need:
 - Complex validation rules
 - Template variables (dates, paths, etc.)
 - Team collaboration features
+- Database connectors (MySQL, PostgreSQL) *(Pro)*
 
 ```bash
 cuiqdata init my_project
@@ -230,6 +231,9 @@ cuiqdata run pipeline.toml
 ---
 
 ## 🗓️ Background Scheduler
+
+> [!NOTE]
+> 🔒 **Pro feature** — the scheduler, REST API, and `cuiqdata server start` require [cuiqData Pro](https://gumroad.com/cuiqanalytics) ($49 one-time).
 
 cuiqData includes a **production-ready background scheduler** for running pipelines on a schedule. No additional infrastructure needed—just cron expressions and local SQLite.
 
@@ -425,7 +429,7 @@ Scheduler data is stored in `~/.cuiqdata/scheduler.db` (SQLite):
 
 ## Common Tasks
 
-**See what changed between runs**:
+**See what changed between runs** *(Pro)*:
 ```bash
 cuiqdata report ./sql
 # Generates: execution_report.html (step timings, cache info, row counts)
